@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Havelock", "Inter", sans-serif;
+
+  --color-brand-dark: #1A1614;
+  --color-brand-blue: #B86851;
+  --color-brand-hover: #A65C47;
+  --color-brand-pressed: #8E4C39;
+  --color-brand-subtle: #FAF4EF;
+  --color-brand-electric: #B86851;
+
+  --color-bg-page: #F9F6F3;
+  --color-bg-surface: #FBF8F6;
+  --color-text-primary: #1A1614;
+  --color-text-secondary: #48403D;
+  --color-text-accent: #B86851;
+
+  --color-icon-primary: #1A1614;
+  --color-icon-secondary: #48403D;
+  --color-icon-tertiary: #6B625F;
+  --color-icon-disabled: #A19895;
+
+  --color-button-primary: #B86851;
+  --color-button-primary-hover: #A65C47;
+  --color-button-primary-pressed: #8E4C39;
+
+  --color-success: #15803D;
+  --color-error: #991B1B;
+
+  --color-slate-50: #FDFBFA;
+  --color-slate-100: #F4ECE8;
+  --color-slate-200: #E2D8D2;
+  --color-slate-300: #D8C9C1;
+  --color-slate-400: #A1928B;
+  --color-slate-550: #6B625F;
+  --color-slate-500: #8E827D;
+  --color-slate-600: #6B605B;
+  --color-slate-700: #48403D;
+  --color-slate-800: #312B29;
+  --color-slate-900: #1A1614;
+  --color-slate-950: #120E0D;
+
+  --color-border: #E2D8D2;
+
+  --radius-2xl: 1.5rem;
+  --radius-xl: 1rem;
+
+  --text-8: .5rem;
+  --text-9: .5625rem;
+  --text-10: .625rem;
+  --text-11: .6875rem;
+  --text-12: .75rem;
+  --text-13: .8125rem;
+  --text-14: .875rem;
+  --text-16: 1rem;
+  --text-18: 1.125rem;
+  --text-20: 1.25rem;
+  --text-24: 1.5rem;
+  --text-28: 1.75rem;
+  --text-32: 2rem;
+  --text-36: 2.25rem;
+  --text-40: 2.5rem;
+  --text-48: 3rem;
+  --text-56: 3.5rem;
+  --text-64: 4rem;
+  --text-72: 4.5rem;
+  --text-80: 5rem;
+  --text-96: 6rem;
+}
+
+@layer base {
+  body {
+    @apply font-sans text-text-primary bg-bg-page subpixel-antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight text-text-primary;
+  }
+}
+
+.global-container {
+ @apply max-w-359  mx-auto w-full  px-4.5 lg:px-21.5;
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/70 backdrop-blur-md border border-slate-200/50;
+  }
+
+  .glass-dark {
+    @apply bg-brand-dark/85 backdrop-blur-lg border border-white/10;
+  }
+
+  .text-glow-blue {
+    text-shadow: 0 0 20px rgba(26, 111, 196, 0.5);
+  }
+
+  .roi-slider {
+    @apply appearance-none bg-slate-200 h-1.5 rounded-full outline-none;
+  }
+
+  .roi-slider::-webkit-slider-thumb {
+    @apply appearance-none w-7 h-7 bg-brand-blue cursor-pointer shadow-lg shadow-brand-blue/30;
+    background-image: radial-gradient(circle at 65% 35%, white 15%, transparent 20%);
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg) translateY(-10px) translateX(10px);
+    transition: all 0.2s ease;
+  }
+
+  .roi-slider::-moz-range-thumb {
+    @apply w-7 h-7 bg-brand-blue border-none cursor-pointer shadow-lg shadow-brand-blue/30;
+    background-image: radial-gradient(circle at 65% 35%, white 15%, transparent 20%);
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg) translateY(-10px) translateX(10px);
+  }
+
+  .roi-slider::-webkit-slider-thumb:hover {
+    @apply scale-110;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes scroll-reverse {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-scroll {
+  animation: scroll 30s linear infinite;
+}
+
+.animate-scroll-slow {
+  animation: scroll 60s linear infinite;
+}
+
+.animate-scroll-reverse {
+  animation: scroll-reverse 60s linear infinite;
+}
+
+/* Custom Interaction Styles for Device Mockup Screens on Hover */
+.group:hover .clinical-device-screen {
+  background: #ffffff !important;
+  transition: all 0.3s ease-in-out;
+}
+
+.group:hover .clinical-device-screen h3,
+.group:hover .clinical-device-screen h4,
+.group:hover .clinical-device-screen p,
+/* .group:hover .clinical-device-screen span:not(.font-black):not(.text-[8px]):not(.text-[7.5px]):not(.bg-brand-blue *):not(.bg-brand-hover *), */
+.group:hover .clinical-device-screen .text-slate-400,
+.group:hover .clinical-device-screen .text-slate-300,
+.group:hover .clinical-device-screen .text-slate-200,
+.group:hover .clinical-device-screen .text-slate-100 {
+  color: #0f172a !important;
+  transition: color 0.3s ease-in-out;
+}
+
+/* Ensure the sub-containers on the screen convert to clean card surfaces */
+.group:hover .clinical-device-screen .flex-grow {
+  background-color: #f8fafc !important;
+  border-color: rgba(15, 23, 42, 0.08) !important;
+  transition: all 0.3s ease-in-out;
+}
+
+.group:hover .clinical-device-screen .bg-slate-900,
+.group:hover .clinical-device-screen .bg-slate-800,
+.group:hover .clinical-device-screen .bg-white\/5,
+.group:hover .clinical-device-screen .bg-black\/40,
+.group:hover .clinical-device-screen .bg-rose-950\/40,
+.group:hover .clinical-device-screen .bg-brand-blue\/10,
+.group:hover .clinical-device-screen [class*="bg-indigo-500/20"],
+.group:hover .clinical-device-screen [class*="bg-rose-500/20"],
+.group:hover .clinical-device-screen [class*="bg-amber-500/20"] {
+  background-color: #f1f5f9 !important;
+  transition: all 0.3s ease-in-out;
+  border-color: rgba(15, 23, 42, 0.08) !important;
+}
+
+/* For labels and badges */
+.group:hover .clinical-device-screen [class*="text-brand-blue"],
+.group:hover .clinical-device-screen [class*="text-indigo-300"],
+.group:hover .clinical-device-screen [class*="text-rose-300"],
+.group:hover .clinical-device-screen [class*="text-amber-300"] {
+  color: #1a6fc4 !important; /* Force legible brand blue accent tint labels */
+}
