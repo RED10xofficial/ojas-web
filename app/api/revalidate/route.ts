@@ -60,11 +60,11 @@ export async function POST(request: NextRequest) {
 
   if (tag === "all") {
     for (const t of ALL_STATIC_TAGS) {
-      revalidateTag(t);
+      revalidateTag(t, "max");
     }
     return NextResponse.json({ revalidated: ALL_STATIC_TAGS, now: Date.now() });
   }
 
-  revalidateTag(tag);
+  revalidateTag(tag, "max");
   return NextResponse.json({ revalidated: [tag], now: Date.now() });
 }
