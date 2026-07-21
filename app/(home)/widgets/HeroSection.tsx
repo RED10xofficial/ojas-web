@@ -85,16 +85,28 @@ export default function HeroSection({ data, wrapperClass }: { data?: HeroSection
             </div>
           )}
           <div className="w-full max-w-200 mx-auto">
-            <div className="relative group">
+            <form
+              className="relative group"
+              onSubmit={(e) => {
+                e.preventDefault();
+                const input = e.currentTarget.elements.namedItem("query") as HTMLInputElement;
+                const q = input?.value.trim();
+                const url = q
+                  ? `https://chat.ojaslife.ai/?q=${encodeURIComponent(q)}`
+                  : "https://chat.ojaslife.ai/";
+                window.open(url, "_blank", "noopener,noreferrer");
+              }}
+            >
               <input
+                name="query"
                 type="text"
                 className="w-full bg-white border border-brand-subtle rounded-full py-5 px-10 pr-20 text-xl text-text-secondary focus:outline-none focus:ring-4 focus:ring-brand-blue/5 focus:border-brand-blue/30 transition-all placeholder:text-text-accent/30 shadow-2xl shadow-brand-dark/5"
                 placeholder={placeholderText}
               />
-              <button className="absolute right-2.5 top-1/2 -translate-y-1/2 w-14 h-14 bg-text-primary text-white rounded-full flex items-center justify-center hover:bg-brand-hover active:bg-brand-pressed transition-all shadow-md">
+              <button type="submit" className="absolute right-2.5 top-1/2 -translate-y-1/2 w-14 h-14 bg-text-primary text-white rounded-full flex items-center justify-center hover:bg-brand-hover active:bg-brand-pressed transition-all shadow-md">
                 <ArrowRight size={24} />
               </button>
-            </div>
+            </form>
             <div className="flex flex-wrap justify-center gap-2.5 mt-8">
               {shortcuts.map((shortcut) => (
                 <button

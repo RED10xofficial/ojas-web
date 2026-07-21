@@ -35,6 +35,7 @@ const ALL_STATIC_TAGS = [
 export async function POST(request: NextRequest) {
   const secret = request.headers.get("x-revalidate-secret");
   const expectedSecret = process.env.REVALIDATION_SECRET;
+  console.log(expectedSecret)
 
   if (expectedSecret && secret !== expectedSecret) {
     return NextResponse.json({ error: "Invalid secret" }, { status: 401 });
