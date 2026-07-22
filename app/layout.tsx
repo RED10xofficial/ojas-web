@@ -27,7 +27,7 @@ export default async function RootLayout({
         {themeCss && <style id="style-var" dangerouslySetInnerHTML={{ __html: themeCss }} />}
       </head>
       <body className="min-h-full flex flex-col">
-        <SmoothScroll />
+        {/* <SmoothScroll /> */}
         <Header data={headerData} />
         <main className="flex-1">{children}</main>
         <Footer data={footerData} />

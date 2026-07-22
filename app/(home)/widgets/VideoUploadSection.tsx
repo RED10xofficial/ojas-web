@@ -48,20 +48,27 @@ export default function VideoUploadSection({ data, wrapperClass }: { data?: Vide
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  className="w-full max-w-4xl mx-auto mt-12 bg-brand-subtle/40 border border-dashed border-brand-subtle rounded-2xl p-10 sm:p-16 transition-all hover:border-brand-blue/30 group relative overflow-hidden"
+                  className="w-full max-w-4xl mx-auto mt-12 rounded-2xl bg-white overflow-hidden transition-all group relative cursor-pointer"
                   onClick={() => videoUrl && setOpen(true)}
                 >
                   {/* Poster as background */}
-                  <div className="relative aspect-video w-full">
+                  <div className="relative aspect-video w-full overflow-hidden">
+                    <Image
+                      src={posterUrl!}
+                      alt={data?.poster?.alternativeText ?? title}
+                      fill
+                      className="object-cover"
+                      unoptimized
+                    />
                     {/* Dark overlay + play button */}
-                    <div className="absolute inset-0 transition-colors flex items-center justify-center">
+                    <div className="absolute inset-0 bg-black/35 group-hover:bg-black/45 transition-colors flex items-center justify-center">
                       <div className="w-20 h-20 rounded-full bg-white/90 shadow-xl flex items-center justify-center text-brand-blue group-hover:scale-110 transition-transform duration-300">
                         <Play size={36} fill="currentColor" className="ml-1" />
                       </div>
                     </div>
                   </div>
                   {/* Title + description below poster */}
-                  <div className="mt-6 text-center">
+                  <div className="my-6 text-center">
                     <h3 className="text-2xl font-display font-bold text-text-primary mb-3">
                       {title}
                     </h3>

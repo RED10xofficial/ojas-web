@@ -199,9 +199,11 @@ export default function ModelsSection({
             {description}
           </p>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="flex flex-wrap -m-2 justify-center">
           {models.map((m) => (
-            <SpecialtyCard key={m.title} {...m} />
+            <div key={m.title} className="w-full sm:w-1/2 lg:w-1/4 p-2">
+              <SpecialtyCard {...m} />
+            </div>
           ))}
         </div>
         {ctaLabel && (

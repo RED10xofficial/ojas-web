@@ -6,8 +6,8 @@ import { ChevronRight, ArrowRight } from "lucide-react";
 import type { FaqSection } from "@/app/lib/types";
 import { cn } from "@/app/lib/cn";
 
-function FAQItem({ question, answer }: { question: string; answer: string }) {
-  const [isOpen, setIsOpen] = useState(false);
+function FAQItem({ question, answer, defaultOpen = false }: { question: string; answer: string; defaultOpen?: boolean }) {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
   return (
     <div className="border-b border-black/10">
       <button onClick={() => setIsOpen(!isOpen)} className="w-full py-6 flex items-center justify-between text-left group">
@@ -57,7 +57,7 @@ export default function FAQSection({ data, wrapperClass }: { data?: FaqSection; 
           </div>
           <div className="lg:col-span-3 border-t border-black/10">
             {faqs.map((faq, idx) => (
-              <FAQItem key={idx} question={faq.question} answer={faq.answer} />
+              <FAQItem key={idx} question={faq.question} answer={faq.answer} defaultOpen={idx === 0} />
             ))}
           </div>
         </div>

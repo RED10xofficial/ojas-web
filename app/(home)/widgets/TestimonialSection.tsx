@@ -6,6 +6,7 @@ import { Play, X } from "lucide-react";
 import ScrollHighlightedText from "./ScrollHighlightedText";
 import type { TestimonialSection as TestimonialSectionData } from "@/app/lib/types";
 import { getStrapiMedia } from "@/app/lib/strapi";
+import Image from "next/image";
 import { cn } from "@/app/lib/cn";
 
 export default function TestimonialSection({
@@ -63,7 +64,19 @@ export default function TestimonialSection({
                 className="aspect-[9/16] w-full max-w-[300px] bg-brand-dark rounded-[2rem] overflow-hidden shadow-2xl relative group border-8 border-slate-50 cursor-pointer"
                 onClick={() => videoUrl && setOpen(true)}
               >
-                <div className="absolute inset-0 bg-linear-to-br from-brand-dark to-slate-900 flex flex-col items-center justify-center p-6 text-center">
+                {posterUrl && (
+                  <Image
+                    src={posterUrl}
+                    alt={data?.poster?.alternativeText ?? videoTitle}
+                    fill
+                    className="object-cover opacity-50"
+                    unoptimized
+                  />
+                )}
+                <div className={cn(
+                  "absolute inset-0 flex flex-col items-center justify-center p-6 text-center",
+                  posterUrl ? "bg-black/35" : "bg-linear-to-br from-brand-dark to-slate-900"
+                )}>
                   <div className="w-16 h-16 rounded-full bg-brand-blue/20 backdrop-blur-md border border-white/20 flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform">
                     <Play fill="currentColor" size={24} />
                   </div>

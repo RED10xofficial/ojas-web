@@ -14,21 +14,49 @@ const defaultPrompts = [
   "Why is the texture becoming rough?",
 ];
 
-const defaultTrustBadges = ["DPDP Compliances", "Build in Google", "Trained on AIIMS data", "ISO certified"];
-const defaultPartners = ["AIIMS", "Google", "Mayo clinic", "JJ hospital", "Medanta", "Kokilaben Dhirubhai Ambani Hospital", "jupiter hospital", "Fortis Hospitals"];
+const defaultTrustBadges = [
+  "DPDP Compliances",
+  "Build in Google",
+  "Trained on AIIMS data",
+  "ISO certified",
+];
+const defaultPartners = [
+  "AIIMS",
+  "Google",
+  "Mayo clinic",
+  "JJ hospital",
+  "Medanta",
+  "Kokilaben Dhirubhai Ambani Hospital",
+  "jupiter hospital",
+  "Fortis Hospitals",
+];
 
-export default function HeroSection({ data, wrapperClass }: { data?: DermaHeroSection; wrapperClass?: string }) {
+export default function HeroSection({
+  data,
+  wrapperClass,
+}: {
+  data?: DermaHeroSection;
+  wrapperClass?: string;
+}) {
   const prompts = data?.prompts?.map((p) => p.text) ?? defaultPrompts;
-  const title = data?.title ?? "India\u2019s Next-Gen Dermatology AI Foundation Model";
-  const alternateTitle = data?.alternateTitle ?? "AI- Powered Skin Lesion Analysis";
-  const inputPlaceholder = data?.inputPlaceholder ?? "Type skin diagnostic question (e.g., \u2018atopic eczema\u2019, \u2018atypical mole\u2019)...";
+  const title =
+    data?.title ?? "India\u2019s Next-Gen Dermatology AI Foundation Model";
+  const alternateTitle =
+    data?.alternateTitle ?? "AI- Powered Skin Lesion Analysis";
+  const inputPlaceholder =
+    data?.inputPlaceholder ??
+    "Type skin diagnostic question (e.g., \u2018atopic eczema\u2019, \u2018atypical mole\u2019)...";
   const analyzeButtonText = data?.analyzeButtonText ?? "Analyze";
-  const trialText = data?.trialText ?? "Start a 14-Day Free Trial - No Credit Card Needed";
+  const trialText =
+    data?.trialText ?? "Start a 14-Day Free Trial - No Credit Card Needed";
   const backLinkText = data?.backLinkText ?? "Back to Main Operating System";
   const backLinkUrl = data?.backLinkUrl ?? "/";
-  const trustBadges = data?.trustBadges?.map((b) => b.title) ?? defaultTrustBadges;
+  const trustBadges =
+    data?.trustBadges?.map((b) => b.title) ?? defaultTrustBadges;
   const partners = data?.partners?.map((p) => p.title) ?? defaultPartners;
-  const [viewMode, setViewMode] = useState<"foundation" | "lesion">("foundation");
+  const [viewMode, setViewMode] = useState<"foundation" | "lesion">(
+    "foundation",
+  );
   const [promptText, setPromptText] = useState("");
   const [promptIndex, setPromptIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -47,14 +75,37 @@ export default function HeroSection({ data, wrapperClass }: { data?: DermaHeroSe
     setTimeout(() => {
       setIsSearchingText(false);
       const query = promptText.toLowerCase();
-      if (query.includes("mole") || query.includes("melanoma") || query.includes("cancer") || query.includes("spot")) {
-        setSearchResults("OJAS Analysis: High-resolution visual scan shows a 7.2mm asymmetric lesion. Margin analysis displays irregular branching pseudopods. Recommended clinical action: Immediate dermoscopy referral to triage suspected malignant melanoma. (Confidence: 98.4%)");
-      } else if (query.includes("dry") || query.includes("eczema") || query.includes("itch") || query.includes("atopic")) {
-        setSearchResults("OJAS Analysis: Mapped epidermal moisture level at 32% (critical dehydration). Symmetrical erythematous plaques detected. Highly suggestive of Atopic Dermatitis. Recommended action: Daily ceramide-based moisture-barrier restoration and non-steroidal topical sequence.");
-      } else if (query.includes("flake") || query.includes("scale") || query.includes("psoriasis") || query.includes("red")) {
-        setSearchResults("OJAS Analysis: Multi-spectral imaging reveals active hyperkeratosis with silvery scaling over a raised erythematous base. Consistent with Plaque Psoriasis. Recommended action: Localized phototherapy NB-UVB combined with topical calcipotriol base mapping.");
+      if (
+        query.includes("mole") ||
+        query.includes("melanoma") ||
+        query.includes("cancer") ||
+        query.includes("spot")
+      ) {
+        setSearchResults(
+          "OJAS Analysis: High-resolution visual scan shows a 7.2mm asymmetric lesion. Margin analysis displays irregular branching pseudopods. Recommended clinical action: Immediate dermoscopy referral to triage suspected malignant melanoma. (Confidence: 98.4%)",
+        );
+      } else if (
+        query.includes("dry") ||
+        query.includes("eczema") ||
+        query.includes("itch") ||
+        query.includes("atopic")
+      ) {
+        setSearchResults(
+          "OJAS Analysis: Mapped epidermal moisture level at 32% (critical dehydration). Symmetrical erythematous plaques detected. Highly suggestive of Atopic Dermatitis. Recommended action: Daily ceramide-based moisture-barrier restoration and non-steroidal topical sequence.",
+        );
+      } else if (
+        query.includes("flake") ||
+        query.includes("scale") ||
+        query.includes("psoriasis") ||
+        query.includes("red")
+      ) {
+        setSearchResults(
+          "OJAS Analysis: Multi-spectral imaging reveals active hyperkeratosis with silvery scaling over a raised erythematous base. Consistent with Plaque Psoriasis. Recommended action: Localized phototherapy NB-UVB combined with topical calcipotriol base mapping.",
+        );
       } else {
-        setSearchResults(`OJAS Multi-Spectral Analysis for &quot;${promptText}&quot;: Cellular pattern mapping indicates normal Fitzpatrick photo-reactive structure. No high-risk atypical lesion signatures or neoplastic developments detected. Suggest regular hydration and broad-spectrum SPF 50 monitoring. (Confidence: 95.7%)`);
+        setSearchResults(
+          `OJAS Multi-Spectral Analysis for &quot;${promptText}&quot;: Cellular pattern mapping indicates normal Fitzpatrick photo-reactive structure. No high-risk atypical lesion signatures or neoplastic developments detected. Suggest regular hydration and broad-spectrum SPF 50 monitoring. (Confidence: 95.7%)`,
+        );
       }
     }, 1200);
   };
@@ -93,7 +144,12 @@ export default function HeroSection({ data, wrapperClass }: { data?: DermaHeroSe
   }, [promptText, isDeleting, promptIndex, typingSpeed, isUserTyping]);
 
   return (
-    <section className={cn("relative min-h-[90vh] overflow-hidden bg-bg-page flex items-center justify-center global-container mx-auto pt-40 pb-20 border-b border-brand-subtle", wrapperClass)}>
+    <section
+      className={cn(
+        "relative min-h-[90vh] overflow-hidden bg-bg-page flex flex-col items-center justify-center global-container mx-auto pt-40 pb-20 border-b border-brand-subtle",
+        wrapperClass,
+      )}
+    >
       {/* Background Glow */}
       <div className="absolute -bottom-37.5 left-1/2 -translate-x-1/2 w-250 h-100 bg-brand-blue/15 blur-3xl rounded-full"></div>
       {/* Grid Lines */}
@@ -169,7 +225,10 @@ export default function HeroSection({ data, wrapperClass }: { data?: DermaHeroSe
                 className="mt-4 bg-white/80 backdrop-blur border border-brand-subtle p-6 rounded-3xl text-left shadow-md flex items-center gap-4"
               >
                 <div className="w-8 h-8 rounded-full border-2 border-brand-blue/30 border-t-brand-blue animate-spin shrink-0" />
-                <div className="text-sm font-semibold text-text-secondary">OJAS multi-spectral cellular matrix analyzing clinical sequence queries...</div>
+                <div className="text-sm font-semibold text-text-secondary">
+                  OJAS multi-spectral cellular matrix analyzing clinical
+                  sequence queries...
+                </div>
               </motion.div>
             )}
 
@@ -188,7 +247,9 @@ export default function HeroSection({ data, wrapperClass }: { data?: DermaHeroSe
                     <ShieldCheck size={24} />
                   </div>
                   <div>
-                    <h4 className="font-display font-black text-md text-text-primary uppercase tracking-wide mb-2">Diagnostic Feedback</h4>
+                    <h4 className="font-display font-black text-md text-text-primary uppercase tracking-wide mb-2">
+                      Diagnostic Feedback
+                    </h4>
                     <p className="text-sm text-text-secondary leading-relaxed font-semibold">
                       {searchResults}
                     </p>
@@ -210,27 +271,37 @@ export default function HeroSection({ data, wrapperClass }: { data?: DermaHeroSe
           </AnimatePresence>
         </div>
 
-        <p className="text-text-primary text-lg font-extrabold uppercase tracking-wider mb-16 select-none leading-none">
+        <p className="text-text-primary text-14 font-semibold uppercase tracking-wide mb-16 select-none leading-none">
           {trialText}
         </p>
 
         {/* Trust Scrolling Animation */}
-        <div className="w-full border-t border-brand-subtle/50 pt-8 mt-12 overflow-hidden relative">
+      </div>
+      <div className="global-container">
+        <div className="w-full border-t border-brand-subtle/50 pt-8 mt-8 overflow-hidden relative">
           <div className="w-full relative flex overflow-hidden">
             <div className="flex gap-20 items-center whitespace-nowrap animate-scroll-reverse py-2">
-              {[...trustBadges, ...trustBadges, ...trustBadges].map((name, i) => (
-                <div key={i} className="flex items-center gap-3 font-display font-black text-brand-blue text-lg md:text-xl uppercase tracking-wider">
-                  <ShieldCheck size={20} className="text-brand-blue" />
-                  {name}
-                </div>
-              ))}
+              {[...trustBadges, ...trustBadges, ...trustBadges].map(
+                (name, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center gap-3 font-display font-black text-brand-blue text-lg md:text-xl uppercase tracking-wider"
+                  >
+                    <ShieldCheck size={20} className="text-brand-blue" />
+                    {name}
+                  </div>
+                ),
+              )}
             </div>
           </div>
 
           <div className="w-full relative flex overflow-hidden group mt-12">
             <div className="flex gap-16 items-center whitespace-nowrap animate-scroll py-2">
               {[...partners, ...partners].map((name, i) => (
-                <div key={i} className="flex items-center gap-2.5 font-display font-extrabold text-text-primary opacity-85 hover:text-brand-blue transition-colors cursor-default text-lg md:text-xl">
+                <div
+                  key={i}
+                  className="flex items-center gap-2.5 font-display font-extrabold text-text-primary opacity-85 hover:text-brand-blue transition-colors cursor-default text-lg md:text-xl"
+                >
                   <div className="w-2.5 h-2.5 rounded-full bg-brand-blue/30" />
                   {name}
                 </div>
