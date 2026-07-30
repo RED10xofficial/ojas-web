@@ -17,6 +17,23 @@ import { NextRequest, NextResponse } from "next/server";
  *   - "theme-config"
  *   - "header"
  *   - "footer"
+ *   - "careers-page"
+ *   - "contact-page"
+ *   - "about-page"
+ *   - "pricing-page"
+ *   - "developer-api-page"
+ *   - "blogs-page"
+ *   - "blogs"            (any blog create/update/delete)
+ *   - "blog-{slug}"      (a single blog detail page)
+ *   - "research-papers-page"
+ *   - "research-papers"  (any research paper create/update/delete)
+ *   - "case-studies-page"
+ *   - "case-studies"       (any case study create/update/delete)
+ *   - "case-study-{slug}"  (a single case study detail page)
+ *   - "white-paper-page"
+ *   - "use-cases-page"
+ *   - "use-cases"        (any use case create/update/delete)
+ *   - "use-case-{slug}"  (a single use case detail page)
  *   - "models-page-dermatology"
  *   - "models-page-scribe"
  *   - "models-page-{slug}"
@@ -28,6 +45,20 @@ const ALL_STATIC_TAGS = [
   "theme-config",
   "header",
   "footer",
+  "careers-page",
+  "contact-page",
+  "about-page",
+  "pricing-page",
+  "developer-api-page",
+  "blogs-page",
+  "blogs",
+  "research-papers-page",
+  "research-papers",
+  "case-studies-page",
+  "case-studies",
+  "white-paper-page",
+  "use-cases-page",
+  "use-cases",
   "models-page-dermatology",
   "models-page-scribe",
 ];

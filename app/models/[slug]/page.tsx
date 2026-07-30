@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getModelsPage } from "@/app/lib/api";
+import { getAllModelsPageSlugs, getModelsPage } from "@/app/lib/api";
 import { buildSeoMetadata } from "@/app/lib/seo";
 import SectionRenderer from "@/app/components/SectionRenderer";
 import PageCustomCss from "@/app/components/PageCustomCss";
@@ -35,12 +35,15 @@ import PricingSection from "../../(home)/widgets/PricingSection";
 import ComplianceSection from "../../(home)/widgets/ComplianceSection";
 import FAQSection from "../../(home)/widgets/FAQSection";
 
-/* ── Valid slugs for static generation & validation ── */
-const VALID_SLUGS = ["dermatology", "scribe"] as const;
-type ValidSlug = (typeof VALID_SLUGS)[number];
+/**
+ * Slugs that ship a hardcoded widget fallback for when the CMS is
+ * unreachable. Any other model page comes purely from the CMS.
+ */
+type ValidSlug = "dermatology" | "scribe";
 
 export async function generateStaticParams() {
-  return VALID_SLUGS.map((slug) => ({ slug }));
+  const slugs = await getAllModelsPageSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -106,10 +109,6 @@ export default async function ModelsPage({
 }) {
   const { slug } = await params;
 
-  if (!VALID_SLUGS.includes(slug as ValidSlug)) {
-    notFound();
-  }
-
   const pageData = await getModelsPage(slug);
   if (pageData?.sections?.length) {
     return (
@@ -123,6 +122,12 @@ export default async function ModelsPage({
 
   /* Fallback: render static widgets when CMS is unavailable */
   const fallbackComponents = STATIC_FALLBACKS[slug as ValidSlug];
+
+  /* No CMS entry and no hardcoded fallback — the page does not exist. */
+  if (!fallbackComponents) {
+    notFound();
+  }
+
   return (
     <>
       {fallbackComponents.map((Component, idx) => (
