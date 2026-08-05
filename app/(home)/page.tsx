@@ -4,7 +4,6 @@ import { buildSeoMetadata } from "@/app/lib/seo";
 import SectionRenderer from "@/app/components/SectionRenderer";
 import PageCustomCss from "@/app/components/PageCustomCss";
 import SeoJsonLd from "@/app/components/SeoJsonLd";
-
 import HeroSection from "./widgets/HeroSection";
 import ScrollerSection from "./widgets/ScrollerSection";
 import VideoUploadSection from "./widgets/VideoUploadSection";
@@ -37,7 +36,7 @@ export default async function HomePage() {
 
   if (homePageData?.sections?.length) {
     return (
-      <div data-page-id="home">
+      <div id="home">
         <SeoJsonLd structuredData={homePageData.seo?.structuredData} />
         <PageCustomCss css={homePageData.customCss} pageId="home" />
         <SectionRenderer sections={homePageData.sections} />

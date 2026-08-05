@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import { Bookmark, CheckCircle2, Printer, Share2 } from "lucide-react";
 import type { CaseStudiesMetricsSection } from "@/app/lib/types";
+import { cn } from "@/app/lib/cn";
 
 interface Props {
   section: CaseStudiesMetricsSection;
@@ -32,7 +33,7 @@ const CaseStudiesMetrics = ({ section }: Props) => {
   const metrics = section.metrics ?? [];
 
   return (
-    <section className="pb-16 sm:pb-24">
+    <section className={cn("pb-16 sm:pb-24", section.wrapperClass)}>
       <div className="global-container mx-auto space-y-12">
         {/* Hero */}
         <div className="text-center max-w-4xl mx-auto">
@@ -44,7 +45,7 @@ const CaseStudiesMetrics = ({ section }: Props) => {
               </span>
             </div>
           )}
-          <h1 className="text-32 lg:text-48 leading-[1.15] font-display font-medium text-text-primary uppercase tracking-tight mb-6">
+          <h1 className="text-32 lg:text-48 leading-[1.15] font-display font-medium text-text-primary tracking-tight mb-6">
             {section.title}
             {section.highlightedTitle && (
               <>

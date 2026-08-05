@@ -12,6 +12,8 @@ import type {
   PricingPageData,
   DeveloperApiPageData,
   JobApplicationPayload,
+  ContactSubmissionPayload,
+  NewsletterSubscriptionPayload,
   BlogsPageData,
   BlogListing,
   BlogDetailData,
@@ -26,10 +28,9 @@ import type {
   UseCaseCategoryGroup,
 } from "./types";
 
-/**
- * Cache tags used for on-demand revalidation.
- * Strapi webhook hits /api/revalidate?tag=<tag> to purge.
- */
+/* ─── Cache tags ─── */
+
+/** Strapi webhooks purge these via /api/revalidate?tag=<tag>. */
 export const CACHE_TAGS = {
   homePage: "home-page",
   theme: "theme-config",
@@ -54,293 +55,30 @@ export const CACHE_TAGS = {
   whitePaperPage: "white-paper-page",
   useCasesPage: "use-cases-page",
   useCases: "use-cases",
-  /**
-   * Named `singleUseCase` rather than `useCase`: a `use`-prefixed callable
-   * trips the react-hooks lint rule when invoked outside a component.
-   */
+  /** Not `useCase`: a `use`-prefixed callable trips the react-hooks lint rule. */
   singleUseCase: (slug: string) => `use-case-${slug}`,
 } as const;
 
-export async function getHomePage(): Promise<HomePageData | null> {
-  try {
-    const res = await fetch(getStrapiURL("/api/home-page"), {
-      next: { tags: [CACHE_TAGS.homePage] },
-    });
+/* ─── Fetch helpers ─── */
 
-    if (!res.ok) return null;
+export type SubmitResult = { ok: true } | { ok: false; error: string };
 
-    const json = await res.json();
-    return json.data ?? null;
-  } catch {
-    return null;
-  }
-}
-
-export async function getThemeConfig(): Promise<ThemeConfig | null> {
-  try {
-    const res = await fetch(getStrapiURL("/api/theme-config"), {
-      next: { tags: [CACHE_TAGS.theme] },
-    });
-
-    if (!res.ok) return null;
-
-    const json = await res.json();
-    return json.data ?? null;
-  } catch {
-    return null;
-  }
-}
-
-export async function getFooter(): Promise<FooterData | null> {
-  try {
-    const res = await fetch(getStrapiURL("/api/footer"), {
-      next: { tags: [CACHE_TAGS.footer] },
-    });
-
-    if (!res.ok) return null;
-
-    const json = await res.json();
-    return json.data ?? null;
-  } catch {
-    return null;
-  }
-}
-
-export async function getHeader(): Promise<HeaderData | null> {
-  try {
-    const res = await fetch(getStrapiURL("/api/header"), {
-      next: { tags: [CACHE_TAGS.header] },
-    });
-
-    if (!res.ok) return null;
-
-    const json = await res.json();
-    return json.data ?? null;
-  } catch {
-    return null;
-  }
-}
-
-export async function getCareersPage(): Promise<CareersPageData | null> {
-  try {
-    const res = await fetch(getStrapiURL("/api/careers-page/full"), {
-      next: { tags: [CACHE_TAGS.careersPage] },
-    });
-
-    if (!res.ok) return null;
-
-    const json = await res.json();
-    return json.data ?? null;
-  } catch {
-    return null;
-  }
-}
-
-export async function getContactPage(): Promise<ContactPageData | null> {
-  try {
-    const res = await fetch(getStrapiURL("/api/contact-page/full"), {
-      next: { tags: [CACHE_TAGS.contactPage] },
-    });
-
-    if (!res.ok) return null;
-
-    const json = await res.json();
-    return json.data ?? null;
-  } catch {
-    return null;
-  }
-}
-
-export async function getAboutPage(): Promise<AboutPageData | null> {
-  try {
-    const res = await fetch(getStrapiURL("/api/about-page/full"), {
-      next: { tags: [CACHE_TAGS.aboutPage] },
-    });
-
-    if (!res.ok) return null;
-
-    const json = await res.json();
-    return json.data ?? null;
-  } catch {
-    return null;
-  }
-}
-
-export async function getPricingPage(): Promise<PricingPageData | null> {
-  try {
-    const res = await fetch(getStrapiURL("/api/pricing-page/full"), {
-      next: { tags: [CACHE_TAGS.pricingPage] },
-    });
-
-    if (!res.ok) return null;
-
-    const json = await res.json();
-    return json.data ?? null;
-  } catch {
-    return null;
-  }
-}
-
-export async function getDeveloperApiPage(): Promise<DeveloperApiPageData | null> {
-  try {
-    const res = await fetch(getStrapiURL("/api/developer-api-page/full"), {
-      next: { tags: [CACHE_TAGS.developerApiPage] },
-    });
-
-    if (!res.ok) return null;
-
-    const json = await res.json();
-    return json.data ?? null;
-  } catch {
-    return null;
-  }
-}
-
-export async function getBlogsPage(): Promise<BlogsPageData | null> {
-  try {
-    const res = await fetch(getStrapiURL("/api/blogs-page/full"), {
-      next: { tags: [CACHE_TAGS.blogsPage, CACHE_TAGS.blogs] },
-    });
-
-    if (!res.ok) return null;
-
-    const json = await res.json();
-    return json.data ?? null;
-  } catch {
-    return null;
-  }
-}
-
-export async function getBlogBySlug(slug: string): Promise<BlogDetailData | null> {
-  try {
-    const res = await fetch(getStrapiURL(`/api/blogs/slug/${slug}`), {
-      next: { tags: [CACHE_TAGS.blogs, CACHE_TAGS.blog(slug)] },
-    });
-
-    if (!res.ok) return null;
-
-    const json = await res.json();
-    return json.data ?? null;
-  } catch {
-    return null;
-  }
-}
-
-/**
- * All published slugs, used to pre-render blog detail routes.
- */
-export async function getAllBlogSlugs(): Promise<string[]> {
-  try {
-    const res = await fetch(
-      getStrapiURL("/api/blogs/listing?pageSize=48&withCategories=false"),
-      { next: { tags: [CACHE_TAGS.blogs] } },
-    );
-
-    if (!res.ok) return [];
-
-    const json = await res.json();
-    return (json.data?.blogs ?? []).map((blog: { slug: string }) => blog.slug);
-  } catch {
-    return [];
-  }
-}
-
-/**
- * Client-side "Load more" / category switching on the blogs listing.
- * Not cached — the grid drives this from user interaction.
- */
-export async function getBlogListing(params: {
+export type ListingParams = {
   category?: string;
   page?: number;
   pageSize?: number;
   search?: string;
-}): Promise<BlogListing | null> {
-  const query = new URLSearchParams({ withCategories: "false" });
-  if (params.category && params.category !== "all") query.set("category", params.category);
-  if (params.page) query.set("page", String(params.page));
-  if (params.pageSize) query.set("pageSize", String(params.pageSize));
-  if (params.search) query.set("search", params.search);
+};
 
-  try {
-    const res = await fetch(getStrapiURL(`/api/blogs/listing?${query.toString()}`));
+const NETWORK_ERROR = "Network error. Please check your connection.";
 
-    if (!res.ok) return null;
-
-    const json = await res.json();
-    return json.data ?? null;
-  } catch {
-    return null;
-  }
-}
-
-export async function getResearchPapersPage(): Promise<ResearchPapersPageData | null> {
-  try {
-    const res = await fetch(getStrapiURL("/api/research-papers-page/full"), {
-      next: { tags: [CACHE_TAGS.researchPapersPage, CACHE_TAGS.researchPapers] },
-    });
-
-    if (!res.ok) return null;
-
-    const json = await res.json();
-    return json.data ?? null;
-  } catch {
-    return null;
-  }
-}
-
-/**
- * Client-side paging / domain filtering on the research papers explorer.
- * Not cached — the explorer drives this from user interaction.
- */
-export async function getResearchPaperListing(params: {
-  category?: string;
-  page?: number;
-  pageSize?: number;
-  search?: string;
-}): Promise<ResearchPaperListing | null> {
-  const query = new URLSearchParams({ withCategories: "false" });
-  if (params.category && params.category !== "all") query.set("category", params.category);
-  if (params.page) query.set("page", String(params.page));
-  if (params.pageSize) query.set("pageSize", String(params.pageSize));
-  if (params.search) query.set("search", params.search);
-
+/** GETs a Strapi endpoint and unwraps `json.data`. Null on any failure. */
+async function get<T>(path: string, tags?: string[]): Promise<T | null> {
   try {
     const res = await fetch(
-      getStrapiURL(`/api/research-papers/listing?${query.toString()}`),
+      getStrapiURL(path),
+      tags ? { next: { tags } } : undefined,
     );
-
-    if (!res.ok) return null;
-
-    const json = await res.json();
-    return json.data ?? null;
-  } catch {
-    return null;
-  }
-}
-
-export async function getCaseStudiesPage(): Promise<CaseStudiesPageData | null> {
-  try {
-    const res = await fetch(getStrapiURL("/api/case-studies-page/full"), {
-      next: { tags: [CACHE_TAGS.caseStudiesPage, CACHE_TAGS.caseStudies] },
-    });
-
-    if (!res.ok) return null;
-
-    const json = await res.json();
-    return json.data ?? null;
-  } catch {
-    return null;
-  }
-}
-
-export async function getCaseStudyBySlug(
-  slug: string,
-): Promise<CaseStudyDetailData | null> {
-  try {
-    const res = await fetch(getStrapiURL(`/api/case-studies/slug/${slug}`), {
-      next: { tags: [CACHE_TAGS.caseStudies, CACHE_TAGS.caseStudy(slug)] },
-    });
-
     if (!res.ok) return null;
 
     const json = await res.json();
@@ -351,47 +89,16 @@ export async function getCaseStudyBySlug(
 }
 
 /**
- * All published slugs, used to pre-render case study detail routes.
+ * Same as `get`, but for routes that require the Strapi API token.
+ * Server-only: STRAPI_API_TOKEN is never NEXT_PUBLIC_-prefixed, so it
+ * resolves to undefined (not the real value) in any client bundle.
  */
-export async function getAllCaseStudySlugs(): Promise<string[]> {
+async function getSecure<T>(path: string, tags?: string[]): Promise<T | null> {
   try {
-    const res = await fetch(
-      getStrapiURL("/api/case-studies/listing?pageSize=48&withCategories=false"),
-      { next: { tags: [CACHE_TAGS.caseStudies] } },
-    );
-
-    if (!res.ok) return [];
-
-    const json = await res.json();
-    return (json.data?.caseStudies ?? []).map(
-      (study: { slug: string }) => study.slug,
-    );
-  } catch {
-    return [];
-  }
-}
-
-/**
- * Client-side "Load more" / category switching on the case studies portfolio.
- * Not cached — the grid drives this from user interaction.
- */
-export async function getCaseStudyListing(params: {
-  category?: string;
-  page?: number;
-  pageSize?: number;
-  search?: string;
-}): Promise<CaseStudyListing | null> {
-  const query = new URLSearchParams({ withCategories: "false" });
-  if (params.category && params.category !== "all") query.set("category", params.category);
-  if (params.page) query.set("page", String(params.page));
-  if (params.pageSize) query.set("pageSize", String(params.pageSize));
-  if (params.search) query.set("search", params.search);
-
-  try {
-    const res = await fetch(
-      getStrapiURL(`/api/case-studies/listing?${query.toString()}`),
-    );
-
+    const res = await fetch(getStrapiURL(path), {
+      headers: { Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}` },
+      ...(tags ? { next: { tags } } : {}),
+    });
     if (!res.ok) return null;
 
     const json = await res.json();
@@ -401,84 +108,14 @@ export async function getCaseStudyListing(params: {
   }
 }
 
-export async function getWhitePaperPage(): Promise<WhitePaperPageData | null> {
+/** POSTs `{ data: payload }` and normalizes the server's error message. */
+async function post(
+  path: string,
+  payload: unknown,
+  failureMessage: string,
+): Promise<SubmitResult> {
   try {
-    const res = await fetch(getStrapiURL("/api/white-paper-page/full"), {
-      next: { tags: [CACHE_TAGS.whitePaperPage] },
-    });
-
-    if (!res.ok) return null;
-
-    const json = await res.json();
-    return json.data ?? null;
-  } catch {
-    return null;
-  }
-}
-
-export async function getUseCasesPage(): Promise<UseCasesPageData | null> {
-  try {
-    const res = await fetch(getStrapiURL("/api/use-cases-page/full"), {
-      next: { tags: [CACHE_TAGS.useCasesPage, CACHE_TAGS.useCases] },
-    });
-
-    if (!res.ok) return null;
-
-    const json = await res.json();
-    return json.data ?? null;
-  } catch {
-    return null;
-  }
-}
-
-export async function getUseCaseBySlug(slug: string): Promise<UseCaseData | null> {
-  try {
-    const res = await fetch(getStrapiURL(`/api/use-cases/slug/${slug}`), {
-      next: { tags: [CACHE_TAGS.useCases, CACHE_TAGS.singleUseCase(slug)] },
-    });
-
-    if (!res.ok) return null;
-
-    const json = await res.json();
-    return json.data ?? null;
-  } catch {
-    return null;
-  }
-}
-
-/**
- * Grouped categories with their use case cards. Also the source of the slug
- * list used to pre-render detail routes.
- */
-export async function getUseCaseDirectory(): Promise<UseCaseCategoryGroup[]> {
-  try {
-    const res = await fetch(getStrapiURL("/api/use-cases/directory"), {
-      next: { tags: [CACHE_TAGS.useCases] },
-    });
-
-    if (!res.ok) return [];
-
-    const json = await res.json();
-    return json.data ?? [];
-  } catch {
-    return [];
-  }
-}
-
-export async function getAllUseCaseSlugs(): Promise<string[]> {
-  const categories = await getUseCaseDirectory();
-  return categories.flatMap((cat) => cat.items.map((item) => item.slug));
-}
-
-/**
- * Submits an application to the careers registry.
- * Client-side call — not cached, and errors surface to the form.
- */
-export async function submitJobApplication(
-  payload: JobApplicationPayload,
-): Promise<{ ok: true } | { ok: false; error: string }> {
-  try {
-    const res = await fetch(getStrapiURL("/api/job-applications/apply"), {
+    const res = await fetch(getStrapiURL(path), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ data: payload }),
@@ -486,67 +123,208 @@ export async function submitJobApplication(
 
     if (!res.ok) {
       const json = await res.json().catch(() => null);
-      return {
-        ok: false,
-        error: json?.error?.message ?? "Submission failed. Please try again.",
-      };
+      return { ok: false, error: json?.error?.message ?? failureMessage };
     }
 
     return { ok: true };
   } catch {
-    return { ok: false, error: "Network error. Please check your connection." };
+    return { ok: false, error: NETWORK_ERROR };
   }
 }
 
-export async function getModelsIndexPage(): Promise<ModelsIndexPageData | null> {
-  try {
-    const res = await fetch(getStrapiURL("/api/models-index-page/full"), {
-      next: { tags: [CACHE_TAGS.modelsIndexPage] },
-    });
-
-    if (!res.ok) return null;
-
-    const json = await res.json();
-    return json.data ?? null;
-  } catch {
-    return null;
-  }
+/** Query string shared by the paginated listing endpoints. */
+function listingQuery(params: ListingParams): string {
+  const query = new URLSearchParams({ withCategories: "false" });
+  if (params.category && params.category !== "all")
+    query.set("category", params.category);
+  if (params.page) query.set("page", String(params.page));
+  if (params.pageSize) query.set("pageSize", String(params.pageSize));
+  if (params.search) query.set("search", params.search);
+  return query.toString();
 }
 
-/**
- * Slugs of every published model page, used to pre-render the routes. Falls
- * back to the two original specialist pages when the CMS is unreachable so a
- * build never loses them.
- */
+/* ─── Site-wide singles ─── */
+
+export const getThemeConfig = () =>
+  getSecure<ThemeConfig>("/api/theme-config", [CACHE_TAGS.theme]);
+
+export const getHeader = () =>
+  getSecure<HeaderData>("/api/header", [CACHE_TAGS.header]);
+
+export const getFooter = () =>
+  getSecure<FooterData>("/api/footer", [CACHE_TAGS.footer]);
+
+/* ─── Marketing pages ─── */
+
+export const getHomePage = () =>
+  getSecure<HomePageData>("/api/home-page", [CACHE_TAGS.homePage]);
+
+export const getAboutPage = () =>
+  getSecure<AboutPageData>("/api/about-page/full", [CACHE_TAGS.aboutPage]);
+
+export const getCareersPage = () =>
+  getSecure<CareersPageData>("/api/careers-page/full", [
+    CACHE_TAGS.careersPage,
+  ]);
+
+export const getContactPage = () =>
+  getSecure<ContactPageData>("/api/contact-page/full", [
+    CACHE_TAGS.contactPage,
+  ]);
+
+export const getPricingPage = () =>
+  getSecure<PricingPageData>("/api/pricing-page/full", [
+    CACHE_TAGS.pricingPage,
+  ]);
+
+export const getDeveloperApiPage = () =>
+  getSecure<DeveloperApiPageData>("/api/developer-api-page/full", [
+    CACHE_TAGS.developerApiPage,
+  ]);
+
+export const getWhitePaperPage = () =>
+  getSecure<WhitePaperPageData>("/api/white-paper-page/full", [
+    CACHE_TAGS.whitePaperPage,
+  ]);
+
+/* ─── Models ─── */
+
+/** Kept so a build never loses the original specialist pages. */
+const FALLBACK_MODEL_SLUGS = ["dermatology", "scribe"];
+
+export const getModelsIndexPage = () =>
+  getSecure<ModelsIndexPageData>("/api/models-index-page/full", [
+    CACHE_TAGS.modelsIndexPage,
+  ]);
+
+export const getModelsPage = (slug: string) =>
+  getSecure<ModelsPageData>(`/api/models-page/${slug}`, [
+    CACHE_TAGS.modelsPage(slug),
+  ]);
+
+/** Slugs for pre-rendering the model routes; falls back if the CMS is down. */
 export async function getAllModelsPageSlugs(): Promise<string[]> {
-  try {
-    const res = await fetch(getStrapiURL("/api/models-pages/slugs"), {
-      next: { tags: [CACHE_TAGS.modelsPages] },
-    });
-
-    if (!res.ok) return ["dermatology", "scribe"];
-
-    const json = await res.json();
-    const slugs = (json.data ?? []) as string[];
-
-    return slugs.length > 0 ? slugs : ["dermatology", "scribe"];
-  } catch {
-    return ["dermatology", "scribe"];
-  }
+  const slugs = await getSecure<string[]>("/api/models-pages/slugs", [
+    CACHE_TAGS.modelsPages,
+  ]);
+  return slugs?.length ? slugs : FALLBACK_MODEL_SLUGS;
 }
 
-export async function getModelsPage(slug: string): Promise<ModelsPageData | null> {
-  try {
-    const res = await fetch(
-      getStrapiURL(`/api/models-page/${slug}`),
-      { next: { tags: [CACHE_TAGS.modelsPage(slug)] } },
-    );
+/* ─── Blogs ─── */
 
-    if (!res.ok) return null;
+export const getBlogsPage = () =>
+  getSecure<BlogsPageData>("/api/blogs-page/full", [
+    CACHE_TAGS.blogsPage,
+    CACHE_TAGS.blogs,
+  ]);
 
-    const json = await res.json();
-    return json.data ?? null;
-  } catch {
-    return null;
-  }
+export const getBlogBySlug = (slug: string) =>
+  getSecure<BlogDetailData>(`/api/blogs/slug/${slug}`, [
+    CACHE_TAGS.blogs,
+    CACHE_TAGS.blog(slug),
+  ]);
+
+/** Published slugs, used to pre-render blog detail routes. */
+export async function getAllBlogSlugs(): Promise<string[]> {
+  const listing = await get<BlogListing>(
+    "/api/blogs/listing?pageSize=48&withCategories=false",
+    [CACHE_TAGS.blogs],
+  );
+  return listing?.blogs?.map((blog) => blog.slug) ?? [];
 }
+
+/** Uncached: driven by "Load more" / category switching in the grid. */
+export const getBlogListing = (params: ListingParams) =>
+  get<BlogListing>(`/api/blogs/listing?${listingQuery(params)}`);
+
+/* ─── Research papers ─── */
+
+export const getResearchPapersPage = () =>
+  getSecure<ResearchPapersPageData>("/api/research-papers-page/full", [
+    CACHE_TAGS.researchPapersPage,
+    CACHE_TAGS.researchPapers,
+  ]);
+
+/** Uncached: driven by paging / domain filtering in the explorer. */
+export const getResearchPaperListing = (params: ListingParams) =>
+  get<ResearchPaperListing>(
+    `/api/research-papers/listing?${listingQuery(params)}`,
+  );
+
+/* ─── Case studies ─── */
+
+export const getCaseStudiesPage = () =>
+  getSecure<CaseStudiesPageData>("/api/case-studies-page/full", [
+    CACHE_TAGS.caseStudiesPage,
+    CACHE_TAGS.caseStudies,
+  ]);
+
+export const getCaseStudyBySlug = (slug: string) =>
+  getSecure<CaseStudyDetailData>(`/api/case-studies/slug/${slug}`, [
+    CACHE_TAGS.caseStudies,
+    CACHE_TAGS.caseStudy(slug),
+  ]);
+
+/** Published slugs, used to pre-render case study detail routes. */
+export async function getAllCaseStudySlugs(): Promise<string[]> {
+  const listing = await get<CaseStudyListing>(
+    "/api/case-studies/listing?pageSize=48&withCategories=false",
+    [CACHE_TAGS.caseStudies],
+  );
+  return listing?.caseStudies?.map((study) => study.slug) ?? [];
+}
+
+/** Uncached: driven by "Load more" / category switching in the portfolio. */
+export const getCaseStudyListing = (params: ListingParams) =>
+  get<CaseStudyListing>(`/api/case-studies/listing?${listingQuery(params)}`);
+
+/* ─── Use cases ─── */
+
+export const getUseCasesPage = () =>
+  getSecure<UseCasesPageData>("/api/use-cases-page/full", [
+    CACHE_TAGS.useCasesPage,
+    CACHE_TAGS.useCases,
+  ]);
+
+export const getUseCaseBySlug = (slug: string) =>
+  getSecure<UseCaseData>(`/api/use-cases/slug/${slug}`, [
+    CACHE_TAGS.useCases,
+    CACHE_TAGS.singleUseCase(slug),
+  ]);
+
+/** Categories with their use case cards; also the source of the slug list. */
+export async function getUseCaseDirectory(): Promise<UseCaseCategoryGroup[]> {
+  const categories = await getSecure<UseCaseCategoryGroup[]>(
+    "/api/use-cases/directory",
+    [CACHE_TAGS.useCases],
+  );
+  return categories ?? [];
+}
+
+export async function getAllUseCaseSlugs(): Promise<string[]> {
+  const categories = await getUseCaseDirectory();
+  return categories.flatMap((cat) => cat.items.map((item) => item.slug));
+}
+
+/* ─── Form submissions (client-side, uncached) ─── */
+
+export const submitJobApplication = (payload: JobApplicationPayload) =>
+  post(
+    "/api/job-applications/apply",
+    payload,
+    "Submission failed. Please try again.",
+  );
+
+export const submitContactForm = (payload: ContactSubmissionPayload) =>
+  post(
+    "/api/contact-submissions/submit",
+    payload,
+    "Submission failed. Please try again.",
+  );
+
+export const subscribeToNewsletter = (payload: NewsletterSubscriptionPayload) =>
+  post(
+    "/api/newsletter-subscribers/subscribe",
+    payload,
+    "Subscription failed. Please try again.",
+  );

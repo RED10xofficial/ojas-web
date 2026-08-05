@@ -47,7 +47,7 @@ export default async function UseCaseDetailPage({ params }: Props) {
   const faqs = useCase.faqs ?? [];
 
   return (
-    <div data-page-id="use-case-detail">
+    <div id="use-case-detail">
       <SeoJsonLd structuredData={useCase.seo?.structuredData} />
       <PageCustomCss css={useCase.customCss} pageId="use-case-detail" />
       <UseCaseSections sections={useCase.sections} fallbackTitle={useCase.label} />

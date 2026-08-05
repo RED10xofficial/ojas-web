@@ -36,7 +36,7 @@ export default async function CaseStudyDetailPage({ params }: Props) {
   if (!study) notFound();
 
   return (
-    <div data-page-id="case-study-detail">
+    <div id="case-study-detail">
       <SeoJsonLd structuredData={study.seo?.structuredData} />
       <ResourcesTopHeader />
       <CaseStudyDetail study={study} />

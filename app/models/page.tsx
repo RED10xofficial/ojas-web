@@ -30,7 +30,7 @@ export default async function ModelsIndexPage() {
   );
 
   return (
-    <div data-page-id="models-index">
+    <div id="models-index">
       <SeoJsonLd structuredData={pageData?.seo?.structuredData} />
       <PageCustomCss css={pageData?.customCss} pageId="models-index" />
       <ModelsIndexSections sections={pageData?.sections} />

@@ -7,6 +7,7 @@ import { motion } from "motion/react";
 import { ArrowRight, Search, Clock, User, Calendar, BookOpen, Loader2 } from "lucide-react";
 import { getBlogListing } from "@/app/lib/api";
 import { getStrapiMedia } from "@/app/lib/strapi";
+import { cn } from "@/app/lib/cn";
 import type { BlogPostCard, BlogCategory, BlogsListingSection } from "@/app/lib/types";
 
 interface Props {
@@ -170,7 +171,7 @@ const BlogsGrid = ({ section }: Props) => {
   const gridBlogs = featured ? blogs.slice(1) : blogs;
 
   return (
-    <section className="pb-16 sm:pb-24">
+    <section className={cn("pb-16 sm:pb-24", section.wrapperClass)}>
       <div className="global-container mx-auto space-y-8">
         {/* FILTERS & SEARCH ROW */}
         <div className="flex flex-col md:flex-row gap-6 justify-between items-center bg-white p-4 sm:p-6 rounded-[2rem] border border-brand-subtle shadow-sm">

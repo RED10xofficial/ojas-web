@@ -29,7 +29,7 @@ export default async function UseCasesPage() {
   );
 
   return (
-    <div data-page-id="use-cases">
+    <div id="use-cases">
       <SeoJsonLd structuredData={useCasesPageData?.seo?.structuredData} />
       <PageCustomCss css={useCasesPageData?.customCss} pageId="use-cases" />
       <UseCasesSections sections={useCasesPageData?.sections} />

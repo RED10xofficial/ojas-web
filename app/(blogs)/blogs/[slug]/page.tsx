@@ -36,7 +36,7 @@ export default async function BlogDetailPage({ params }: Props) {
   if (!post) notFound();
 
   return (
-    <div data-page-id="blog-detail">
+    <div id="blog-detail">
       <SeoJsonLd structuredData={post.seo?.structuredData} />
       <ResourcesTopHeader />
       <BlogDetail post={post} />

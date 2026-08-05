@@ -26,14 +26,13 @@ export default async function CareersPage() {
   const careersPageData = await getCareersPage();
 
 
-  console.log(careersPageData)
   /* Any non-careers sections (FAQ, stats, …) render through the shared renderer */
   const extraSections = careersPageData?.sections?.filter(
     (section) => !CAREERS_COMPONENTS.includes(section.__component),
   );
 
   return (
-    <div data-page-id="careers">
+    <div id="careers">
       <SeoJsonLd structuredData={careersPageData?.seo?.structuredData} />
       <PageCustomCss css={careersPageData?.customCss} pageId="careers" />
       <PageTopHeader />

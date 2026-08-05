@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { Dna } from "lucide-react";
 import type { ClinicianValidationSectionData } from "@/app/lib/types";
+import { cn } from "@/app/lib/cn";
 
 interface Props {
   section: ClinicianValidationSectionData;
@@ -10,7 +11,7 @@ interface Props {
 
 export default function ClinicianValidationSection({ section }: Props) {
   return (
-    <section className="pb-16 sm:pb-24 border-t border-brand-subtle">
+    <section className={cn("pb-16 sm:pb-24 border-t border-brand-subtle", section.wrapperClass)}>
       <div className="global-container mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left column — video card */}

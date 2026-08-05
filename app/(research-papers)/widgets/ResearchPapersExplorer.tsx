@@ -286,7 +286,7 @@ const ResearchPapersExplorer = ({ section }: Props) => {
                   )}
                 </div>
 
-                <h1 className="text-lg sm:text-28 font-display font-medium text-text-primary uppercase tracking-tight leading-tight mb-4">
+                <h1 className="text-lg sm:text-28 font-display font-medium text-text-primary tracking-tight leading-tight mb-4">
                   {activePaper.title}
                 </h1>
                 {activePaper.authors && (

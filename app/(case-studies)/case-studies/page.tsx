@@ -33,7 +33,7 @@ export default async function CaseStudiesPage() {
   );
 
   return (
-    <div data-page-id="case-studies">
+    <div id="case-studies">
       <SeoJsonLd structuredData={caseStudiesPageData?.seo?.structuredData} />
       <PageCustomCss css={caseStudiesPageData?.customCss} pageId="case-studies" />
       <ResourcesTopHeader />

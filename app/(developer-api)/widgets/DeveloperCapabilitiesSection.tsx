@@ -60,7 +60,7 @@ export default function DeveloperCapabilitiesSection({
     : defaultCapabilities.map((cap) => ({ ...cap, iconUrl: null }));
 
   return (
-    <section className={cn("pb-16 sm:pb-24", wrapperClass)}>
+    <section className={cn("py-16 sm:py-24", wrapperClass)}>
       <div className="global-container mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

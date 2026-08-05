@@ -32,6 +32,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import type { UseCaseCategoryGroup } from "@/app/lib/types";
+import { cn } from "@/app/lib/cn";
 
 const iconMap: Record<string, LucideIcon> = {
   Activity,
@@ -62,29 +63,38 @@ const iconMap: Record<string, LucideIcon> = {
 
 interface Props {
   category: UseCaseCategoryGroup;
+  wrapperClass?: string;
 }
 
-export default function UseCasesCategory({ category }: Props) {
+export default function UseCasesCategory({ category, wrapperClass }: Props) {
   return (
-    <section className="pb-16 sm:pb-24">
-      <div className="global-container mx-auto space-y-8">
+    <section className={cn("pb-16 sm:pb-24", wrapperClass)}>
+      <div className="global-container mx-auto space-y-8 sm:space-y-10">
         {/* Category header */}
-        <div className="border-b border-brand-subtle pb-6">
-          <span
-            className={`inline-flex items-center px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded-lg border ${category.badgeColor} mb-4`}
-          >
-            {category.badge}
-          </span>
-          <h2 className="text-32 lg:text-48 leading-[1.15] font-display font-medium text-text-primary mb-3">
+        <div className="flex flex-col items-start gap-3 sm:gap-4 border-b border-brand-subtle pb-6 sm:pb-8">
+          {category.badge && (
+            <span
+              className={cn(
+                "inline-flex items-center px-3 py-1.5 rounded-full border text-xs font-bold uppercase tracking-widest",
+                category.badgeColor ||
+                  "bg-brand-blue/10 border-brand-blue/20 text-brand-blue",
+              )}
+            >
+              {category.badge}
+            </span>
+          )}
+          <h2 className="text-32 lg:text-48 leading-[1.15] font-display font-medium text-text-primary">
             {category.title}
           </h2>
-          <p className="text-16 leading-relaxed text-text-secondary max-w-2xl">
-            {category.subtitle}
-          </p>
+          {category.subtitle && (
+            <p className="text-16 leading-relaxed text-text-secondary max-w-2xl">
+              {category.subtitle}
+            </p>
+          )}
         </div>
 
         {/* Items grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-6">
           {category.items.map((item, index) => {
             const Icon = (item.iconName && iconMap[item.iconName]) || Activity;
             const iconUrl = getStrapiMedia(item.icon?.url);
@@ -94,14 +104,14 @@ export default function UseCasesCategory({ category }: Props) {
                 whileInView={{ opacity: 1, y: 0 }}
                 initial={{ opacity: 0, y: 15 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.05 }}
+                transition={{ duration: 0.4, delay: Math.min(index, 5) * 0.05 }}
               >
                 <Link
                   href={`/use-cases/${item.slug}`}
-                  className="group flex flex-col gap-4 bg-white border border-brand-subtle rounded-[2rem] p-8 hover:border-brand-blue/30 shadow-sm hover:shadow-lg transition-all h-full"
+                  className="group flex flex-col gap-5 h-full bg-white border border-brand-subtle rounded-[2rem] p-6 sm:p-8 shadow-sm transition-all hover:border-brand-blue/30 hover:shadow-lg hover:-translate-y-1"
                 >
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center shrink-0 overflow-hidden group-hover:bg-brand-blue transition-colors">
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center shrink-0 overflow-hidden transition-colors group-hover:bg-brand-blue">
                       {iconUrl ? (
                         <Image
                           src={iconUrl}
@@ -113,17 +123,17 @@ export default function UseCasesCategory({ category }: Props) {
                       ) : (
                         <Icon
                           size={22}
-                          className="text-brand-blue group-hover:text-white transition-colors"
+                          className="text-brand-blue transition-colors group-hover:text-white"
                         />
                       )}
                     </div>
                     <ChevronRight
                       size={18}
-                      className="text-text-secondary group-hover:text-brand-blue transition-colors mt-1 shrink-0"
+                      className="shrink-0 text-text-secondary transition-all group-hover:text-brand-blue group-hover:translate-x-0.5"
                     />
                   </div>
-                  <div className="flex flex-col gap-2">
-                    <h3 className="text-lg sm:text-28 font-display font-medium text-text-primary leading-snug">
+                  <div className="flex flex-col gap-2.5">
+                    <h3 className="text-lg sm:text-28 font-display font-medium text-text-primary leading-tight">
                       {item.label}
                     </h3>
                     <p className="text-16 leading-relaxed text-text-secondary">

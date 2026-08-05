@@ -3,6 +3,7 @@
 import { motion, useScroll, useSpring } from "motion/react";
 import { BookOpen } from "lucide-react";
 import type { WhitePaperHeroSection } from "@/app/lib/types";
+import { cn } from "@/app/lib/cn";
 
 interface Props {
   section: WhitePaperHeroSection;
@@ -17,7 +18,7 @@ const WhitePaperHero = ({ section }: Props) => {
   });
 
   return (
-    <section className="pb-16 sm:pb-24 relative">
+    <section className={cn("pb-16 sm:pb-24 relative", section.wrapperClass)}>
       {section.showProgressBar !== false && (
         <motion.div
           style={{ scaleX: progress }}

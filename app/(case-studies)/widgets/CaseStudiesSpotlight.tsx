@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { Activity, Sparkles } from "lucide-react";
 import { getStrapiMedia } from "@/app/lib/strapi";
+import { cn } from "@/app/lib/cn";
 import type { CaseStudiesSpotlightSection } from "@/app/lib/types";
 
 interface Props {
@@ -27,7 +28,7 @@ const CaseStudiesSpotlight = ({ section }: Props) => {
         : section.highStateText;
 
   return (
-    <section className="pb-16 sm:pb-24">
+    <section className={cn("pb-16 sm:pb-24", section.wrapperClass)}>
       <div className="global-container mx-auto">
         <div className="bg-white rounded-3xl border border-slate-200 p-8 sm:p-12 shadow-sm relative overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96 bg-brand-subtle/40 rounded-full blur-3xl pointer-events-none" />
@@ -38,7 +39,7 @@ const CaseStudiesSpotlight = ({ section }: Props) => {
                   <Sparkles size={12} /> {section.badgeText}
                 </div>
               )}
-              <h2 className="text-32 lg:text-48 leading-[1.15] font-display font-medium text-text-primary uppercase tracking-tight">
+              <h2 className="text-32 lg:text-48 leading-[1.15] font-display font-medium text-text-primary tracking-tight">
                 {section.title}
               </h2>
               {section.description && (

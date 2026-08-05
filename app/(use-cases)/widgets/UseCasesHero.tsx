@@ -1,4 +1,5 @@
 import type { UseCasesHeroSectionData } from "@/app/lib/types";
+import { cn } from "@/app/lib/cn";
 
 interface Props {
   section: UseCasesHeroSectionData;
@@ -6,7 +7,7 @@ interface Props {
 
 export default function UseCasesHero({ section }: Props) {
   return (
-    <section className="pb-16 sm:pb-24 pt-35">
+    <section className={cn("pb-16 sm:pb-24 pt-35", section.wrapperClass)}>
       <div className="global-container mx-auto">
         <div className="flex flex-col items-center text-center">
           {section.badgeText && (

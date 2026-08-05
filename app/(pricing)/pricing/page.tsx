@@ -23,7 +23,7 @@ export default async function PricingPage() {
   const pricingPageData = await getPricingPage();
 
   return (
-    <div data-page-id="pricing">
+    <div id="pricing">
       <SeoJsonLd structuredData={pricingPageData?.seo?.structuredData} />
       <PageCustomCss css={pricingPageData?.customCss} pageId="pricing" />
 

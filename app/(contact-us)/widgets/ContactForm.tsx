@@ -1,15 +1,210 @@
 "use client";
 
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
+import type { ReactNode } from "react";
+import { Formik, Form, useField, type FormikHelpers } from "formik";
+import * as Yup from "yup";
 import {
   Sparkles,
   CheckCircle2,
   SendHorizontal,
   ShieldCheck,
+  AlertCircle,
 } from "lucide-react";
 import Toast from "@/app/components/Toast";
 import type { ContactFormSection } from "@/app/lib/types";
 import { cn } from "@/app/lib/cn";
+import { submitContactForm } from "@/app/lib/api";
+
+const DEPARTMENTS = [
+  { value: "general", label: "Healthcare Providers Integration" },
+  { value: "clinical-scientific", label: "Scientific Advisory / Study Request" },
+  { value: "developer", label: "Developer and Sandbox API Limits" },
+  { value: "press", label: "Press & Research Release Queries" },
+];
+
+const initialValues = {
+  name: "",
+  institution: "",
+  department: "general",
+  email: "",
+  message: "",
+};
+
+type ContactValues = typeof initialValues;
+
+/**
+ * Two Yup behaviours this schema depends on:
+ *  - `.trim()` runs as a cast (strict is off), so a whitespace-only field is
+ *    validated — and submitted — as empty.
+ *  - Formik shows the first error per field, so `.required()` is declared
+ *    before `.min()`; otherwise an empty field reports the length rule.
+ */
+const contactSchema = Yup.object({
+  name: Yup.string()
+    .trim()
+    .required("Your full name is required.")
+    .min(2, "Please enter at least 2 characters.")
+    .max(80, "Please keep your name under 80 characters."),
+  institution: Yup.string()
+    .trim()
+    .max(120, "Please keep this under 120 characters."),
+  department: Yup.string()
+    .required("Please choose a department.")
+    .oneOf(
+      DEPARTMENTS.map((option) => option.value),
+      "Choose one of the listed departments.",
+    ),
+  email: Yup.string()
+    .trim()
+    .required("A contact email is required.")
+    .email("Enter a valid email address, e.g. watson@hospital.org."),
+  message: Yup.string()
+    .trim()
+    .required("A message is required.")
+    .min(10, "Please describe your inquiry in at least 10 characters.")
+    .max(2000, "Please keep your message under 2000 characters."),
+});
+
+const controlClass = (invalid: boolean) =>
+  cn(
+    "w-full bg-slate-50 border rounded-xl px-4 py-3 text-xs font-semibold placeholder:text-slate-400 text-slate-800 outline-none transition-all focus:bg-white",
+    invalid
+      ? "border-error/50 focus:border-error"
+      : "border-slate-200 focus:border-brand-blue",
+  );
+
+/** Label + control + error message, wired together for screen readers. */
+function FieldShell({
+  name,
+  label,
+  required,
+  error,
+  children,
+}: {
+  name: string;
+  label: string;
+  required?: boolean;
+  error?: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className="space-y-1.5">
+      <label
+        htmlFor={name}
+        className="text-xs font-mono font-bold uppercase text-slate-500 block"
+      >
+        {label} {required && <span className="text-brand-blue">*</span>}
+      </label>
+      {children}
+      {error && (
+        <p
+          id={`${name}-error`}
+          role="alert"
+          className="flex items-center gap-1.5 text-11 font-semibold text-error"
+        >
+          <AlertCircle size={12} className="shrink-0" />
+          {error}
+        </p>
+      )}
+    </div>
+  );
+}
+
+function TextField({
+  name,
+  label,
+  placeholder,
+  type = "text",
+  required,
+}: {
+  name: string;
+  label: string;
+  placeholder?: string;
+  type?: "text" | "email";
+  required?: boolean;
+}) {
+  const [field, meta] = useField(name);
+  const error = meta.touched ? meta.error : undefined;
+
+  return (
+    <FieldShell name={name} label={label} required={required} error={error}>
+      <input
+        {...field}
+        id={name}
+        type={type}
+        placeholder={placeholder}
+        aria-invalid={Boolean(error)}
+        aria-describedby={error ? `${name}-error` : undefined}
+        className={controlClass(Boolean(error))}
+      />
+    </FieldShell>
+  );
+}
+
+function TextAreaField({
+  name,
+  label,
+  placeholder,
+  rows = 5,
+  required,
+}: {
+  name: string;
+  label: string;
+  placeholder?: string;
+  rows?: number;
+  required?: boolean;
+}) {
+  const [field, meta] = useField(name);
+  const error = meta.touched ? meta.error : undefined;
+
+  return (
+    <FieldShell name={name} label={label} required={required} error={error}>
+      <textarea
+        {...field}
+        id={name}
+        rows={rows}
+        placeholder={placeholder}
+        aria-invalid={Boolean(error)}
+        aria-describedby={error ? `${name}-error` : undefined}
+        className={cn(controlClass(Boolean(error)), "resize-none")}
+      />
+    </FieldShell>
+  );
+}
+
+function SelectField({
+  name,
+  label,
+  options,
+  required,
+}: {
+  name: string;
+  label: string;
+  options: { value: string; label: string }[];
+  required?: boolean;
+}) {
+  const [field, meta] = useField(name);
+  const error = meta.touched ? meta.error : undefined;
+
+  return (
+    <FieldShell name={name} label={label} required={required} error={error}>
+      <select
+        {...field}
+        id={name}
+        aria-invalid={Boolean(error)}
+        aria-describedby={error ? `${name}-error` : undefined}
+        className={controlClass(Boolean(error))}
+      >
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+    </FieldShell>
+  );
+}
 
 const defaultChannels = [
   {
@@ -48,37 +243,43 @@ export default function ContactForm({
     setTimeout(() => setShowToast(false), 3000);
   };
 
-  const [contactFormData, setContactFormData] = useState({
-    name: "",
-    institution: "",
-    department: "general",
-    email: "",
-    message: "",
-  });
   const [isContactSubmitted, setIsContactSubmitted] = useState(false);
 
-  const handleContactSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (
-      !contactFormData.name ||
-      !contactFormData.email ||
-      !contactFormData.message
-    ) {
-      triggerToast("Please complete all required fields.");
+  /* Drop back to the idle button label a moment after a successful send. */
+  useEffect(() => {
+    if (!isContactSubmitted) return;
+    const timer = setTimeout(() => setIsContactSubmitted(false), 2500);
+    return () => clearTimeout(timer);
+  }, [isContactSubmitted]);
+
+  const handleContactSubmit = async (
+    values: ContactValues,
+    { resetForm }: FormikHelpers<ContactValues>,
+  ) => {
+    /*
+     * Formik has already validated, so cast rather than re-validate: cast
+     * applies the schema's trims without a throw path, and a rejection here
+     * would leave Formik stuck with isSubmitting true.
+     */
+    const { name, institution, department, email, message } =
+      contactSchema.cast(values);
+
+    const result = await submitContactForm({
+      name,
+      department,
+      email,
+      message,
+      institution: institution || undefined,
+    });
+
+    if (!result.ok) {
+      triggerToast(result.error);
       return;
     }
+
+    resetForm();
     setIsContactSubmitted(true);
     triggerToast("Secure message delivered to OJAS registry.");
-    setTimeout(() => {
-      setIsContactSubmitted(false);
-      setContactFormData({
-        name: "",
-        institution: "",
-        department: "general",
-        email: "",
-        message: "",
-      });
-    }, 2500);
   };
 
   const badgeText = data?.badgeText ?? "Secure Channels";
@@ -176,137 +377,75 @@ export default function ContactForm({
                 </p>
               </div>
 
-              <form onSubmit={handleContactSubmit} className="space-y-5">
-                <div className="space-y-1.5">
-                  <label className="text-xs font-mono font-bold uppercase text-slate-500 block">
-                    Your Full Name <span className="text-brand-blue">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="Dr. John Watson"
-                    value={contactFormData.name}
-                    onChange={(e) =>
-                      setContactFormData((prev) => ({
-                        ...prev,
-                        name: e.target.value,
-                      }))
-                    }
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs font-semibold placeholder:text-slate-400 text-slate-800 outline-none focus:border-brand-blue focus:bg-white transition-all"
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-mono font-bold uppercase text-slate-500 block">
-                      Institution / Clinic
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="General Medical, London"
-                      value={contactFormData.institution}
-                      onChange={(e) =>
-                        setContactFormData((prev) => ({
-                          ...prev,
-                          institution: e.target.value,
-                        }))
-                      }
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs font-semibold placeholder:text-slate-400 text-slate-800 outline-none focus:border-brand-blue focus:bg-white transition-all"
-                    />
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-mono font-bold uppercase text-slate-500 block">
-                      Target Department{" "}
-                      <span className="text-brand-blue">*</span>
-                    </label>
-                    <select
+              <Formik
+                initialValues={initialValues}
+                validationSchema={contactSchema}
+                onSubmit={handleContactSubmit}
+              >
+                {({ isSubmitting }) => (
+                  /* noValidate: Yup owns validation, not the browser's bubbles. */
+                  <Form className="space-y-5" noValidate>
+                    <TextField
+                      name="name"
+                      label="Your Full Name"
+                      placeholder="Dr. John Watson"
                       required
-                      value={contactFormData.department}
-                      onChange={(e) =>
-                        setContactFormData((prev) => ({
-                          ...prev,
-                          department: e.target.value,
-                        }))
-                      }
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs font-semibold text-slate-800 outline-none focus:border-brand-blue focus:bg-white transition-all"
-                    >
-                      <option value="general">
-                        Healthcare Providers Integration
-                      </option>
-                      <option value="clinical-scientific">
-                        Scientific Advisory / Study Request
-                      </option>
-                      <option value="developer">
-                        Developer and Sandbox API Limits
-                      </option>
-                      <option value="press">
-                        Press & Research Release Queries
-                      </option>
-                    </select>
-                  </div>
-                </div>
+                    />
 
-                <div className="space-y-1.5">
-                  <label className="text-xs font-mono font-bold uppercase text-slate-500 block">
-                    Direct Contact Email{" "}
-                    <span className="text-brand-blue">*</span>
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    placeholder="watson@hospital.clinical"
-                    value={contactFormData.email}
-                    onChange={(e) =>
-                      setContactFormData((prev) => ({
-                        ...prev,
-                        email: e.target.value,
-                      }))
-                    }
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs font-semibold placeholder:text-slate-400 text-slate-800 outline-none focus:border-brand-blue focus:bg-white transition-all"
-                  />
-                </div>
-
-                <div className="space-y-1.5">
-                  <label className="text-xs font-mono font-bold uppercase text-slate-500 block">
-                    Message Body <span className="text-brand-blue">*</span>
-                  </label>
-                  <textarea
-                    rows={5}
-                    required
-                    placeholder="State your operational inquiry or integration scope details..."
-                    value={contactFormData.message}
-                    onChange={(e) =>
-                      setContactFormData((prev) => ({
-                        ...prev,
-                        message: e.target.value,
-                      }))
-                    }
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs font-semibold placeholder:text-slate-400 text-slate-800 outline-none focus:border-brand-blue focus:bg-white transition-all resize-none"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isContactSubmitted}
-                  className="w-full py-3.5 rounded-xl bg-brand-dark hover:bg-brand-blue disabled:bg-slate-700 text-white text-xs font-black uppercase tracking-widest transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-md"
-                >
-                  {isContactSubmitted ? (
-                    <>
-                      <CheckCircle2
-                        size={15}
-                        className="text-emerald-400 animate-pulse"
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <TextField
+                        name="institution"
+                        label="Institution / Clinic"
+                        placeholder="General Medical, London"
                       />
-                      Message Dispatched Safe
-                    </>
-                  ) : (
-                    <>
-                      <SendHorizontal size={14} />
-                      Securely Transmit Query
-                    </>
-                  )}
-                </button>
-              </form>
+                      <SelectField
+                        name="department"
+                        label="Target Department"
+                        options={DEPARTMENTS}
+                        required
+                      />
+                    </div>
+
+                    <TextField
+                      name="email"
+                      label="Direct Contact Email"
+                      type="email"
+                      placeholder="watson@hospital.clinical"
+                      required
+                    />
+
+                    <TextAreaField
+                      name="message"
+                      label="Message Body"
+                      placeholder="State your operational inquiry or integration scope details..."
+                      required
+                    />
+
+                    <button
+                      type="submit"
+                      disabled={isSubmitting || isContactSubmitted}
+                      className="w-full py-3.5 rounded-xl bg-brand-dark hover:bg-brand-blue disabled:bg-slate-700 text-white text-xs font-black uppercase tracking-widest transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-md"
+                    >
+                      {isContactSubmitted ? (
+                        <>
+                          <CheckCircle2
+                            size={15}
+                            className="text-emerald-400 animate-pulse"
+                          />
+                          Message Dispatched Safe
+                        </>
+                      ) : (
+                        <>
+                          <SendHorizontal size={14} />
+                          {isSubmitting
+                            ? "Transmitting..."
+                            : "Securely Transmit Query"}
+                        </>
+                      )}
+                    </button>
+                  </Form>
+                )}
+              </Formik>
             </div>
 
             <Toast show={showToast} message={toastMessage} />

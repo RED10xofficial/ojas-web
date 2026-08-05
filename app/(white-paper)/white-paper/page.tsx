@@ -30,7 +30,7 @@ export default async function WhitePaperPage() {
   );
 
   return (
-    <div data-page-id="white-paper">
+    <div id="white-paper">
       <SeoJsonLd structuredData={whitePaperPageData?.seo?.structuredData} />
       <PageCustomCss css={whitePaperPageData?.customCss} pageId="white-paper" />
       <ResourcesTopHeader />

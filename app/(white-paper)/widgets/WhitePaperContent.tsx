@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import { CheckCircle2, Download, Lock, Mail } from "lucide-react";
 import { getStrapiMedia } from "@/app/lib/strapi";
 import BlogContent from "@/app/(blogs)/widgets/BlogContent";
+import { cn } from "@/app/lib/cn";
 import type { WhitePaperContentSection } from "@/app/lib/types";
 
 interface Props {
@@ -42,7 +43,7 @@ const WhitePaperContent = ({ section }: Props) => {
   const currentTrend = trends[activeTrend];
 
   return (
-    <section className="pb-16 sm:pb-24">
+    <section className={cn("pb-16 sm:pb-24", section.wrapperClass)}>
       <div className="global-container mx-auto">
         <div className="grid lg:grid-cols-12 gap-12 items-start">
           {/* Left Column: Trend Visualizer (4/12) */}
@@ -171,7 +172,7 @@ const WhitePaperContent = ({ section }: Props) => {
                       animate={{ opacity: 1 }}
                       className="space-y-4"
                     >
-                      <h3 className="text-lg sm:text-28 font-display font-medium text-text-primary uppercase">
+                      <h3 className="text-lg sm:text-28 font-display font-medium text-text-primary">
                         {tabs[activeTab].title}
                       </h3>
                       {tabs[activeTab].content && (
@@ -191,7 +192,7 @@ const WhitePaperContent = ({ section }: Props) => {
                 <div className="max-w-xl mx-auto text-center space-y-6">
                   <Lock className="text-brand-blue mx-auto" size={24} />
 
-                  <h3 className="text-32 lg:text-48 leading-[1.15] font-display font-medium text-text-primary uppercase tracking-tight">
+                  <h3 className="text-32 lg:text-48 leading-[1.15] font-display font-medium text-text-primary tracking-tight">
                     {section.gateTitle}
                   </h3>
 

@@ -31,7 +31,7 @@ export default async function BlogsPage() {
   );
 
   return (
-    <div data-page-id="blogs">
+    <div id="blogs">
       <SeoJsonLd structuredData={blogsPageData?.seo?.structuredData} />
       <PageCustomCss css={blogsPageData?.customCss} pageId="blogs" />
       <ResourcesTopHeader />

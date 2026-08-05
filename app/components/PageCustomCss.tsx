@@ -15,7 +15,7 @@ export default function PageCustomCss({
           .map((rule) => {
             const trimmed = rule.trim();
             if (!trimmed) return "";
-            return `[data-page-id="${pageId}"] ${trimmed}}`;
+            return `#${pageId} ${trimmed}}`;
           })
           .join("\n"),
       }}

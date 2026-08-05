@@ -1,8 +1,6 @@
 import type { ThemeConfig } from "./types";
 
-/**
- * Maps ThemeConfig fields to their CSS custom property names.
- */
+// theme configs
 const TOKEN_MAP: Record<keyof ThemeConfig, string> = {
   brandDark: "--color-brand-dark",
   brandBlue: "--color-brand-blue",
@@ -39,10 +37,6 @@ const TOKEN_MAP: Record<keyof ThemeConfig, string> = {
   border: "--color-border",
 };
 
-/**
- * Builds a CSS string of `:root` variable overrides from a ThemeConfig.
- * Only includes fields that have a truthy value.
- */
 export function buildThemeCss(theme: ThemeConfig): string {
   const vars = Object.entries(TOKEN_MAP)
     .filter(([key]) => theme[key as keyof ThemeConfig])

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { CaseStudiesJourneySection } from "@/app/lib/types";
+import { cn } from "@/app/lib/cn";
 
 interface Props {
   section: CaseStudiesJourneySection;
@@ -14,7 +15,7 @@ const CaseStudiesJourney = ({ section }: Props) => {
   if (steps.length === 0) return null;
 
   return (
-    <section className="pb-16 sm:pb-24">
+    <section className={cn("pb-16 sm:pb-24", section.wrapperClass)}>
       <div className="global-container mx-auto">
         <div className="bg-brand-dark text-white rounded-3xl border border-white/10 p-8 sm:p-12 relative overflow-hidden">
           <div className="absolute top-0 left-0 w-80 h-80 bg-brand-blue/10 blur-[100px] pointer-events-none" />

@@ -4,6 +4,7 @@ import { Fragment, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Star } from "lucide-react";
 import type { HormoneUniverseSectionData } from "@/app/lib/types";
+import { cn } from "@/app/lib/cn";
 
 export default function LivingHormoneUniverse({
   section,
@@ -50,7 +51,12 @@ export default function LivingHormoneUniverse({
     setActiveNodeId((prev) => (prev === nodeId ? "" : nodeId));
 
   return (
-    <section className="bg-slate-950 text-white py-16 sm:py-24 border-t border-brand-subtle relative overflow-hidden">
+    <section
+      className={cn(
+        "bg-slate-950 text-white py-16 sm:py-24 border-t border-brand-subtle relative overflow-hidden",
+        section.wrapperClass,
+      )}
+    >
       {/* Background radial gradient */}
       <div
         className="absolute inset-0 pointer-events-none"

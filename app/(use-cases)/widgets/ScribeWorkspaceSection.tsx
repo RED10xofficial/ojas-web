@@ -28,6 +28,7 @@ import type {
   ScribeExtractedField,
   ScribeWorkspaceSectionData,
 } from "@/app/lib/types";
+import { cn } from "@/app/lib/cn";
 
 const iconMap: Record<string, LucideIcon> = {
   Stethoscope,
@@ -96,10 +97,10 @@ export default function ScribeWorkspaceSection({ section }: Props) {
   const backUrl = section.backLinkUrl || "/use-cases";
 
   return (
-    <section className="pb-16 sm:pb-24">
+    <section className={cn("pb-16 sm:pb-24 pt-25 overflow-hidden relative sm:pt-37.5", section.wrapperClass)}>
       <div className="global-container mx-auto">
         {/* Visual background ambient lighting */}
-        <div className="relative overflow-hidden flex flex-col justify-start">
+        <div className=" flex flex-col justify-start">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] bg-[radial-gradient(ellipse_at_top,rgba(26,111,196,0.06),transparent_70%)] pointer-events-none -z-10" />
 
           <div className="w-full flex-grow flex flex-col items-center">
@@ -166,7 +167,7 @@ export default function ScribeWorkspaceSection({ section }: Props) {
                     </h3>
                   )}
                   {capability.highlightsTitle && (
-                    <h4 className="text-lg sm:text-28 font-display font-medium text-text-primary uppercase leading-tight">
+                    <h4 className="text-lg sm:text-28 font-display font-medium text-text-primary leading-tight">
                       {capability.highlightsTitle}
                     </h4>
                   )}
@@ -393,7 +394,7 @@ export default function ScribeWorkspaceSection({ section }: Props) {
                         {section.ctaBadgeText}
                       </span>
                     )}
-                    <h3 className="text-lg sm:text-28 font-display font-medium text-text-primary uppercase leading-tight">
+                    <h3 className="text-lg sm:text-28 font-display font-medium text-text-primary leading-tight">
                       {section.ctaTitle}
                     </h3>
                     {section.ctaDescription && (

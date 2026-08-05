@@ -6,7 +6,7 @@ import SmoothScroll from "./components/SmoothScroll";
 import { getThemeConfig, getHeader, getFooter } from "./lib/api";
 import { buildThemeCss } from "./lib/theme";
 
-
+//using inter font
 const inter = Inter({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
@@ -18,14 +18,26 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [theme, headerData, footerData] = await Promise.all([getThemeConfig(), getHeader(), getFooter()]);
+  const [theme, headerData, footerData] = await Promise.all([
+    getThemeConfig(),
+    getHeader(),
+    getFooter(),
+  ]);
   const themeCss = theme ? buildThemeCss(theme) : "";
 
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
-      <head>
-        {themeCss && <style id="style-var" dangerouslySetInnerHTML={{ __html: themeCss }} />}
-      </head>
+      {themeCss && (
+        <head>
+          {/* custom css from backend */}
+          {themeCss && (
+            <style
+              id="style-var"
+              dangerouslySetInnerHTML={{ __html: themeCss }}
+            />
+          )}
+        </head>
+      )}
       <body className="min-h-full flex flex-col">
         {/* <SmoothScroll /> */}
         <Header data={headerData} />

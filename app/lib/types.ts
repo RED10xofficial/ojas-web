@@ -80,6 +80,7 @@ export interface SeoData {
 export interface CustomCodeSection {
   __component: "widgets.custom-code-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   html?: string;
   css?: string;
@@ -91,6 +92,7 @@ export interface CustomCodeSection {
 export interface HeroSection {
   __component: "home-page.home-hero-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   subtitleIcon?: StrapiMedia;
   subtitleTitle?: string;
@@ -103,6 +105,7 @@ export interface HeroSection {
 export interface ScrollerSection {
   __component: "home-page.home-scroller-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   trustBadges?: { id: number; title: string; icon?: StrapiMedia }[];
   partners?: { id: number; title: string; logo?: StrapiMedia }[];
@@ -112,6 +115,7 @@ export interface ScrollerSection {
 export interface VideoUploadSection {
   __component: "home-page.home-video-upload-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   title?: string;
   description?: string;
@@ -125,6 +129,7 @@ export interface VideoUploadSection {
 export interface TestimonialSection {
   __component: "home-page.home-testimonial-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   title?: string;
   quote: string;
@@ -160,6 +165,7 @@ export interface TableRow {
 export interface BenchmarksSection {
   __component: "home-page.home-benchmarks-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   title?: string;
   description?: string;
@@ -181,6 +187,7 @@ export interface ReviewCard {
 export interface DoctorReviewsSection {
   __component: "home-page.home-doctor-reviews-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   title: string;
   subtitle?: string;
@@ -201,6 +208,7 @@ export interface ModelCard {
 export interface ModelsSection {
   __component: "home-page.home-models-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   title: string;
   description?: string;
@@ -218,6 +226,7 @@ export interface ComparisonPoint {
 export interface SymptomTrapSection {
   __component: "home-page.home-symptom-trap-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   title: string;
   description?: string;
@@ -231,6 +240,7 @@ export interface SymptomTrapSection {
 export interface WhyOjasSection {
   __component: "home-page.home-why-ojas-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   title: string;
   subtitle?: string;
@@ -248,6 +258,7 @@ export interface DialogueLine {
 export interface AmbientScribingSection {
   __component: "home-page.home-ambient-scribing-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   /** Richtext (markdown) */
   title: string;
@@ -304,6 +315,7 @@ export interface RoiCalculator {
 export interface StatsSection {
   __component: "home-page.home-stats-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   title: string;
   description?: string;
@@ -315,6 +327,7 @@ export interface StatsSection {
 export interface HomeCalculatorWidget {
   __component: "home-page.home-calculator";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   calculators?: RoiCalculator[];
 }
@@ -331,6 +344,7 @@ export interface AccessPointCard {
 export interface AccessPointsSection {
   __component: "home-page.home-access-points-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   title: string;
   accessPoints?: AccessPointCard[];
@@ -350,6 +364,7 @@ export interface BoardDoctor {
 export interface CertifiedAuthorityBoardSection {
   __component: "home-page.home-certified-authority-board-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   title: string;
   subtitle?: string;
@@ -371,6 +386,7 @@ export interface PublicationCard {
 export interface PublicationsSection {
   __component: "home-page.home-publications-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   title: string;
   subtitle?: string;
@@ -390,6 +406,7 @@ export interface BlogCard {
 export interface BlogsSection {
   __component: "home-page.home-blogs-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   title: string;
   blogs?: BlogCard[];
@@ -399,6 +416,7 @@ export interface BlogsSection {
 export interface FeaturedInSection {
   __component: "home-page.home-featured-in-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   title: string;
   subtitle?: string;
@@ -423,6 +441,7 @@ export interface PricingPlan {
 export interface PricingSection {
   __component: "home-page.home-pricing-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   title: string;
   subtitle?: string;
@@ -433,6 +452,7 @@ export interface PricingSection {
 export interface ComplianceSection {
   __component: "home-page.home-compliance-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   title: string;
   complianceItems?: { id: number; name: string }[];
@@ -448,6 +468,7 @@ export interface FaqItem {
 export interface FaqSection {
   __component: "home-page.home-faq-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   title: string;
   description?: string;
@@ -502,6 +523,7 @@ export interface DiagnosticPrompt {
 export interface DermaHeroSection {
   __component: "models-page.derma-hero-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   title: string;
   alternateTitle?: string;
@@ -519,6 +541,7 @@ export interface DermaHeroSection {
 export interface DermaVideoSection {
   __component: "models-page.derma-video-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   title: string;
   videoTitle?: string;
@@ -564,6 +587,7 @@ export interface DiagnosisData {
 export interface DermaClinicalScannerSection {
   __component: "models-page.derma-clinical-scanner-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   preheading?: string;
   title: string;
@@ -578,6 +602,7 @@ export interface DermaClinicalScannerSection {
 export interface DermaPractitionerInsightsSection {
   __component: "models-page.derma-practitioner-insights-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   title: string;
   quote: string;
@@ -593,6 +618,7 @@ export interface DermaPractitionerInsightsSection {
 export interface DermaBenchmarksSection {
   __component: "models-page.derma-benchmarks-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   preheading?: string;
   title: string;
@@ -616,6 +642,7 @@ export interface UseCaseCard {
 export interface DermaBuiltForCliniciansSection {
   __component: "models-page.derma-built-for-clinicians-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   preheading?: string;
   title: string;
@@ -627,6 +654,7 @@ export interface DermaBuiltForCliniciansSection {
 export interface DermaRoiCalculatorSection {
   __component: "models-page.derma-roi-calculator-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   preheading?: string;
   title: string;
@@ -645,6 +673,7 @@ export interface DermaRoiCalculatorSection {
 export interface DermaFooterActionSection {
   __component: "models-page.derma-footer-action-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   cta?: CtaButton;
 }
@@ -665,6 +694,7 @@ export interface FooterColumn {
 export interface DermaFooterSection {
   __component: "models-page.derma-footer-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   logoText: string;
   logoImage?: StrapiMedia;
@@ -691,6 +721,7 @@ export interface HeroCapability {
 export interface ScribeHeroSection {
   __component: "models-page.scribe-hero-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   statusBadge?: string;
   title: string;
@@ -708,6 +739,7 @@ export interface DemoStep {
 export interface ScribeAmbientDemoSection {
   __component: "models-page.scribe-ambient-demo-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   preheading?: string;
   title: string;
@@ -739,6 +771,7 @@ export interface CapabilityCard {
 export interface ScribeCapabilitiesSection {
   __component: "models-page.scribe-capabilities-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   preheading?: string;
   title: string;
@@ -817,6 +850,7 @@ export interface ModelListingCard {
 export interface ModelsIndexHeroSection {
   __component: "models-index-page.models-index-hero-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   badgeText?: string;
   badgeUrl?: string;
@@ -828,6 +862,7 @@ export interface ModelsIndexHeroSection {
 export interface ModelsGridSection {
   __component: "models-index-page.models-grid-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   scienceLabel?: string;
   targetLabel?: string;
@@ -846,6 +881,7 @@ export interface SafetyBadge {
 export interface ModelsSafetySection {
   __component: "models-index-page.models-safety-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   badgeText?: string;
   title: string;
@@ -963,6 +999,7 @@ export interface CareersPerk {
 export interface CareersPerksSection {
   __component: "careers-page.careers-perks-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   badgeText?: string;
   title: string;
@@ -991,6 +1028,7 @@ export interface CareersJobDepartment {
 export interface CareersPositionsSection {
   __component: "careers-page.careers-positions-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   badgeText?: string;
   title: string;
@@ -1047,6 +1085,7 @@ export interface ContactChannel {
 export interface ContactFormSection {
   __component: "contact-page.contact-form-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   badgeText?: string;
   title: string;
@@ -1074,6 +1113,7 @@ export interface ContactOffice {
 export interface ContactOfficesSection {
   __component: "contact-page.contact-offices-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   badgeText?: string;
   title: string;
@@ -1115,6 +1155,7 @@ export interface AboutPurposeCard {
 export interface AboutMissionVisionSection {
   __component: "about-page.about-mission-vision-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   badgeText?: string;
   title: string;
@@ -1134,6 +1175,7 @@ export interface AboutValueCard {
 export interface AboutCoreValuesSection {
   __component: "about-page.about-core-values-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   badgeText?: string;
   title: string;
@@ -1153,6 +1195,7 @@ export interface AboutMilestone {
 export interface AboutMilestonesSection {
   __component: "about-page.about-milestones-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   badgeText?: string;
   title: string;
@@ -1175,6 +1218,7 @@ export interface AboutTeamMember {
 export interface AboutTeamSection {
   __component: "about-page.about-team-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   badgeText?: string;
   title: string;
@@ -1234,6 +1278,7 @@ export interface PricingTier {
 export interface PricingHeroSection {
   __component: "pricing-page.pricing-hero-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   badgeText?: string;
   title: string;
@@ -1260,6 +1305,7 @@ export interface PricingRoiOutput {
 export interface PricingRoiSection {
   __component: "pricing-page.pricing-roi-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   badgeText?: string;
   title: string;
@@ -1285,6 +1331,7 @@ export interface PricingCertification {
 export interface PricingComplianceSection {
   __component: "pricing-page.pricing-compliance-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   title: string;
   description?: string;
@@ -1296,6 +1343,7 @@ export interface PricingComplianceSection {
 export interface PricingFaqSection {
   __component: "pricing-page.pricing-faq-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   badgeText?: string;
   title: string;
@@ -1338,6 +1386,7 @@ export interface PricingPageData {
 export interface DeveloperHeroSection {
   __component: "developer-api-page.developer-hero-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   badgeText?: string;
   title: string;
@@ -1352,6 +1401,7 @@ export interface DeveloperHeroSection {
 export interface DeveloperIntegrateSection {
   __component: "developer-api-page.developer-integrate-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   title: string;
   description?: string;
@@ -1374,6 +1424,7 @@ export interface DeveloperMarqueePartner {
 export interface DeveloperMarqueeSection {
   __component: "developer-api-page.developer-marquee-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   badges?: DeveloperMarqueeBadge[];
   partners?: DeveloperMarqueePartner[];
@@ -1391,6 +1442,7 @@ export interface DeveloperCapabilityCard {
 export interface DeveloperCapabilitiesSection {
   __component: "developer-api-page.developer-capabilities-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   badgeText?: string;
   title: string;
@@ -1473,6 +1525,7 @@ export interface BlogListing {
 export interface BlogsHeroSection {
   __component: "blogs-page.blogs-hero-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   badgeText?: string;
   title: string;
@@ -1483,6 +1536,7 @@ export interface BlogsHeroSection {
 export interface BlogsListingSection extends BlogListing {
   __component: "blogs-page.blogs-listing-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   searchPlaceholder?: string;
   pageSize?: number;
@@ -1497,6 +1551,7 @@ export interface BlogsListingSection extends BlogListing {
 export interface BlogsNewsletterSection {
   __component: "blogs-page.blogs-newsletter-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   badgeText?: string;
   title: string;
@@ -1590,6 +1645,7 @@ export interface ResearchStat {
 export interface ResearchHeroSection {
   __component: "research-papers-page.research-hero-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   badgeText?: string;
   title: string;
@@ -1602,6 +1658,7 @@ export interface ResearchHeroSection {
 export interface ResearchStatsSection {
   __component: "research-papers-page.research-stats-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   stats?: ResearchStat[];
   sectionStyle?: SectionStyle;
@@ -1610,6 +1667,7 @@ export interface ResearchStatsSection {
 export interface ResearchExplorerSection extends ResearchPaperListing {
   __component: "research-papers-page.research-explorer-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   searchPlaceholder?: string;
   pageSize?: number;
@@ -1717,6 +1775,7 @@ export interface ImpactMetric {
 export interface CaseStudiesMetricsSection {
   __component: "case-studies-page.case-studies-metrics-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   badgeText?: string;
   title: string;
@@ -1730,6 +1789,7 @@ export interface CaseStudiesMetricsSection {
 export interface CaseStudiesSpotlightSection {
   __component: "case-studies-page.case-studies-spotlight-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   badgeText?: string;
   title: string;
@@ -1751,6 +1811,7 @@ export interface CaseStudiesSpotlightSection {
 export interface CaseStudiesPortfolioSection extends CaseStudyListing {
   __component: "case-studies-page.case-studies-portfolio-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   title: string;
   description?: string;
@@ -1767,6 +1828,7 @@ export interface CaseStudiesPortfolioSection extends CaseStudyListing {
 export interface CaseStudiesJourneySection {
   __component: "case-studies-page.case-studies-journey-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   badgeText?: string;
   title: string;
@@ -1778,6 +1840,7 @@ export interface CaseStudiesJourneySection {
 export interface CaseStudiesTestimonialSection {
   __component: "case-studies-page.case-studies-testimonial-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   quote: string;
   authorInitials?: string;
@@ -1831,6 +1894,7 @@ export interface WhitePaperTab {
 export interface WhitePaperHeroSection {
   __component: "white-paper-page.white-paper-hero-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   documentLabel?: string;
   classification?: string;
@@ -1848,6 +1912,7 @@ export interface WhitePaperHeroSection {
 export interface WhitePaperContentSection {
   __component: "white-paper-page.white-paper-content-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   trendsTitle?: string;
   trendsDescription?: string;
@@ -1929,6 +1994,7 @@ export interface UseCaseCategoryGroup {
 export interface UseCaseHeroSectionData {
   __component: "use-cases-page.use-case-hero-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   title?: string;
   subtitle?: string;
@@ -1941,6 +2007,7 @@ export interface UseCaseHeroSectionData {
 export interface UseCaseVideoSectionData {
   __component: "use-cases-page.use-case-video-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   title: string;
   description?: string;
@@ -1993,6 +2060,7 @@ export interface ScribeCapability {
 export interface ScribeWorkspaceSectionData {
   __component: "use-cases-page.scribe-workspace-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   capability?: ScribeCapability | null;
   backLinkText?: string;
@@ -2010,6 +2078,7 @@ export interface ScribeWorkspaceSectionData {
 export interface ClinicianValidationSectionData {
   __component: "use-cases-page.clinician-validation-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   badgeText?: string;
   videoLabel?: string;
@@ -2024,6 +2093,7 @@ export interface ClinicianValidationSectionData {
 export interface SymptomTrapNarrativeSectionData {
   __component: "use-cases-page.symptom-trap-narrative-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   badgeText?: string;
   title: string;
@@ -2054,6 +2124,7 @@ export interface FoodItem {
 export interface FoodReactionSectionData {
   __component: "use-cases-page.food-reaction-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   title: string;
   description?: string;
@@ -2086,6 +2157,7 @@ export interface ScribeTranscriptLine {
 export interface AmbientScribingV2SectionData {
   __component: "use-cases-page.ambient-scribing-v2-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   badgeText?: string;
   title: string;
@@ -2121,6 +2193,7 @@ export interface HormoneConnection {
 export interface HormoneUniverseSectionData {
   __component: "use-cases-page.hormone-universe-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   badgeText?: string;
   title: string;
@@ -2143,6 +2216,7 @@ export interface HormoneUniverseSectionData {
 export interface UseCasesHeroSectionData {
   __component: "use-cases-page.use-cases-hero-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   badgeText?: string;
   title: string;
@@ -2153,6 +2227,7 @@ export interface UseCasesHeroSectionData {
 export interface UseCasesDirectorySectionData {
   __component: "use-cases-page.use-cases-directory-section";
   id: number;
+  anchorId?: string;
   wrapperClass?: string;
   emptyStateTitle?: string;
   emptyStateDescription?: string;
@@ -2235,4 +2310,18 @@ export interface JobApplicationPayload {
   jobSlug?: string;
   portfolio?: string;
   statement?: string;
+}
+
+/* ─── Contact Form Submission ─── */
+export interface ContactSubmissionPayload {
+  name: string;
+  institution?: string;
+  department?: string;
+  email: string;
+  message: string;
+}
+
+/* ─── Newsletter Subscription ─── */
+export interface NewsletterSubscriptionPayload {
+  email: string;
 }

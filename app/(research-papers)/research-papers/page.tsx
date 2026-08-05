@@ -31,7 +31,7 @@ export default async function ResearchPapersPage() {
   );
 
   return (
-    <div data-page-id="research-papers">
+    <div id="research-papers">
       <SeoJsonLd structuredData={researchPapersPageData?.seo?.structuredData} />
       <PageCustomCss
         css={researchPapersPageData?.customCss}

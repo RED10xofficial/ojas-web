@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import type { BlogsNewsletterSection } from "@/app/lib/types";
+import { subscribeToNewsletter } from "@/app/lib/api";
+import { cn } from "@/app/lib/cn";
 
 interface Props {
   section: BlogsNewsletterSection;
@@ -10,9 +12,11 @@ interface Props {
 const BlogsNewsletter = ({ section }: Props) => {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
   return (
-    <section className="pb-16 sm:pb-24">
+    <section className={cn("pb-16 sm:pb-24", section.wrapperClass)}>
       <div className="global-container mx-auto">
         <div className="bg-brand-dark rounded-[2.5rem] p-8 md:p-14 border border-white/5 relative overflow-hidden shadow-2xl text-white">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(26,111,196,0.15),transparent_60%)] pointer-events-none" />
@@ -36,8 +40,20 @@ const BlogsNewsletter = ({ section }: Props) => {
               </p>
             ) : (
               <form
-                onSubmit={(e) => {
+                onSubmit={async (e) => {
                   e.preventDefault();
+                  if (!email) return;
+
+                  setIsSubmitting(true);
+                  setError("");
+                  const result = await subscribeToNewsletter({ email });
+                  setIsSubmitting(false);
+
+                  if (!result.ok) {
+                    setError(result.error);
+                    return;
+                  }
+
                   setSubmitted(true);
                   setEmail("");
                 }}
@@ -53,11 +69,15 @@ const BlogsNewsletter = ({ section }: Props) => {
                 />
                 <button
                   type="submit"
-                  className="bg-brand-blue hover:bg-brand-hover text-white px-6 py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all shadow-md shadow-brand-blue/30 font-display shrink-0 cursor-pointer"
+                  disabled={isSubmitting}
+                  className="bg-brand-blue hover:bg-brand-hover disabled:opacity-60 text-white px-6 py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all shadow-md shadow-brand-blue/30 font-display shrink-0 cursor-pointer"
                 >
-                  {section.buttonText || "Join Gazette"}
+                  {isSubmitting ? "Joining..." : section.buttonText || "Join Gazette"}
                 </button>
               </form>
+            )}
+            {error && !submitted && (
+              <p className="text-sm text-red-400 pt-1">{error}</p>
             )}
           </div>
         </div>

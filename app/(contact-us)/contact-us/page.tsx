@@ -22,7 +22,7 @@ export default async function ContactUsPage() {
   const contactPageData = await getContactPage();
 
   return (
-    <div data-page-id="contact-us">
+    <div id="contact-us">
       <SeoJsonLd structuredData={contactPageData?.seo?.structuredData} />
       <PageCustomCss css={contactPageData?.customCss} pageId="contact-us" />
       <PageTopHeader />

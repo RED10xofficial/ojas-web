@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import type { BlogsHeroSection } from "@/app/lib/types";
+import { cn } from "@/app/lib/cn";
 
 interface Props {
   section: BlogsHeroSection;
@@ -9,7 +10,7 @@ interface Props {
 
 const BlogsHero = ({ section }: Props) => {
   return (
-    <section className="pb-16 sm:pb-24">
+    <section className={cn("pb-16 sm:pb-24", section.wrapperClass)}>
       <div className="global-container mx-auto">
         {/* Background radial glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] bg-[radial-gradient(ellipse_at_top,rgba(26,111,196,0.06),transparent_70%)] pointer-events-none -z-10" />

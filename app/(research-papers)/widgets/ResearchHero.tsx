@@ -20,7 +20,7 @@ export default function ResearchHero({ section }: Props) {
             </span>
           )}
 
-          <h1 className="text-32 lg:text-48 leading-[1.15] font-display font-medium text-text-primary uppercase tracking-tight">
+          <h1 className="text-32 lg:text-48 leading-[1.15] font-display font-medium text-text-primary tracking-tight">
             {section.title}
             {section.highlightedTitle && (
               <>

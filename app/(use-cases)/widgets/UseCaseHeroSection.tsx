@@ -4,12 +4,14 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowRight, RefreshCw } from "lucide-react";
+import { cn } from "@/app/lib/cn";
 
 interface UseCaseHeroProps {
   title: string;
   subtitle?: string;
   description?: string;
   phrases: string[];
+  wrapperClass?: string;
 }
 
 interface AnalysisResult {
@@ -24,6 +26,7 @@ export default function UseCaseHeroSection({
   subtitle,
   description,
   phrases,
+  wrapperClass,
 }: UseCaseHeroProps) {
   const [inputValue, setInputValue] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -100,7 +103,7 @@ export default function UseCaseHeroSection({
   };
 
   return (
-    <section className="relative pt-40 pb-24 overflow-hidden">
+    <section className={cn("relative pt-40 pb-24 overflow-hidden", wrapperClass)}>
       <div className="absolute inset-0 -z-10 bg-bg-page opacity-70" />
 
       <div className="global-container mx-auto">

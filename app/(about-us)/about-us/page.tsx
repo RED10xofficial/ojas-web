@@ -24,7 +24,7 @@ export default async function AboutUsPage() {
   const aboutPageData = await getAboutPage();
 
   return (
-    <div data-page-id="about-us">
+    <div id="about-us">
       <SeoJsonLd structuredData={aboutPageData?.seo?.structuredData} />
       <PageCustomCss css={aboutPageData?.customCss} pageId="about-us" />
       <PageTopHeader />

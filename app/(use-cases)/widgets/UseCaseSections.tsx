@@ -47,6 +47,7 @@ export default function UseCaseSections({
                 subtitle={section.subtitle}
                 description={section.description}
                 phrases={(section.phrases ?? []).map((p) => p.text)}
+                wrapperClass={section.wrapperClass}
               />
             );
           case "use-cases-page.use-case-video-section":

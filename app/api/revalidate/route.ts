@@ -1,45 +1,6 @@
 import { revalidateTag } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
-/**
- * On-demand revalidation endpoint for Strapi webhooks.
- *
- * Usage:
- *   POST /api/revalidate
- *   Header: x-revalidate-secret: <REVALIDATION_SECRET>
- *   Body (JSON): { "tag": "home-page" }
- *
- * Or with query param:
- *   POST /api/revalidate?tag=home-page
- *
- * Valid tags:
- *   - "home-page"
- *   - "theme-config"
- *   - "header"
- *   - "footer"
- *   - "careers-page"
- *   - "contact-page"
- *   - "about-page"
- *   - "pricing-page"
- *   - "developer-api-page"
- *   - "blogs-page"
- *   - "blogs"            (any blog create/update/delete)
- *   - "blog-{slug}"      (a single blog detail page)
- *   - "research-papers-page"
- *   - "research-papers"  (any research paper create/update/delete)
- *   - "case-studies-page"
- *   - "case-studies"       (any case study create/update/delete)
- *   - "case-study-{slug}"  (a single case study detail page)
- *   - "white-paper-page"
- *   - "use-cases-page"
- *   - "use-cases"        (any use case create/update/delete)
- *   - "use-case-{slug}"  (a single use case detail page)
- *   - "models-page-dermatology"
- *   - "models-page-scribe"
- *   - "models-page-{slug}"
- *   - "all" (purges everything)
- */
-
 const ALL_STATIC_TAGS = [
   "home-page",
   "theme-config",
@@ -64,14 +25,18 @@ const ALL_STATIC_TAGS = [
 ];
 
 export async function POST(request: NextRequest) {
+
+  //revalidation secret
   const secret = request.headers.get("x-revalidate-secret");
   const expectedSecret = process.env.REVALIDATION_SECRET;
-  console.log(expectedSecret)
+  
 
+  //checking revalidation
   if (expectedSecret && secret !== expectedSecret) {
     return NextResponse.json({ error: "Invalid secret" }, { status: 401 });
   }
-
+  
+  //get tag
   let tag = request.nextUrl.searchParams.get("tag");
 
   if (!tag) {

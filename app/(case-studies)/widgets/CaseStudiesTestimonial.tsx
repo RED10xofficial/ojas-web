@@ -1,12 +1,13 @@
 import { MessageSquare } from "lucide-react";
 import type { CaseStudiesTestimonialSection } from "@/app/lib/types";
+import { cn } from "@/app/lib/cn";
 
 interface Props {
   section: CaseStudiesTestimonialSection;
 }
 
 const CaseStudiesTestimonial = ({ section }: Props) => (
-  <section className="pb-16 sm:pb-24">
+  <section className={cn("pb-16 sm:pb-24", section.wrapperClass)}>
     <div className="global-container mx-auto">
       <div className="text-center max-w-4xl mx-auto">
         <MessageSquare className="text-brand-blue mx-auto mb-4" size={24} />

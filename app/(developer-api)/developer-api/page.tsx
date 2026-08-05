@@ -24,7 +24,7 @@ export default async function DeveloperApiPage() {
   const developerApiPageData = await getDeveloperApiPage();
 
   return (
-    <div data-page-id="developer-api">
+    <div id="developer-api">
       <SeoJsonLd structuredData={developerApiPageData?.seo?.structuredData} />
       <PageCustomCss
         css={developerApiPageData?.customCss}

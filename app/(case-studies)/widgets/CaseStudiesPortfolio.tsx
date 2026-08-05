@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { ArrowRight, Loader2 } from "lucide-react";
 import { getCaseStudyListing } from "@/app/lib/api";
 import { getStrapiMedia } from "@/app/lib/strapi";
+import { cn } from "@/app/lib/cn";
 import type {
   CaseStudyCard,
   CaseStudyCategory,
@@ -80,11 +81,11 @@ const CaseStudiesPortfolio = ({ section }: Props) => {
   }, [isLoadingMore, hasMore, page, activeFilter, pageSize]);
 
   return (
-    <section className="pb-16 sm:pb-24">
+    <section className={cn("pb-16 sm:pb-24", section.wrapperClass)}>
       <div className="global-container mx-auto space-y-10">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 pb-4 border-b border-slate-200">
           <div>
-            <h3 className="text-lg sm:text-28 font-display font-medium text-text-primary uppercase tracking-tight">
+            <h3 className="text-lg sm:text-28 font-display font-medium text-text-primary tracking-tight">
               {section.title}
             </h3>
             {section.description && (

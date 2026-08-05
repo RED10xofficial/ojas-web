@@ -112,7 +112,7 @@ export default async function ModelsPage({
   const pageData = await getModelsPage(slug);
   if (pageData?.sections?.length) {
     return (
-      <div data-page-id={`models-${slug}`}>
+      <div id={`models-${slug}`}>
         <SeoJsonLd structuredData={pageData.seo?.structuredData} />
         <PageCustomCss css={pageData.customCss} pageId={`models-${slug}`} />
         <SectionRenderer sections={pageData.sections} slug={slug} />
