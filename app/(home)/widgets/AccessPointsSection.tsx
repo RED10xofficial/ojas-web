@@ -6,28 +6,49 @@ import type { AccessPointsSection as AccessPointsSectionData } from "@/app/lib/t
 import { getStrapiMedia } from "@/app/lib/strapi";
 import { cn } from "@/app/lib/cn";
 
-function AccessCard({ title, science, target, iconUrl }: { title: string; science: string; target: string; iconUrl?: string | null }) {
+/**
+ * A colour set in the CMS always wins; the default palette only fills in what
+ * was left empty. Background and text resolve independently, so a card can take
+ * its background from Strapi and keep the default text colours, or vice versa.
+ * When a text colour is set the inner copy inherits it and leans on opacity for
+ * the muted labels, since a fixed slate would fight the chosen colour.
+ */
+function AccessCard({ title, science, target, iconUrl, bgColor, textColor }: { title: string; science: string; target: string; iconUrl?: string | null; bgColor?: string; textColor?: string }) {
   return (
     <motion.div
       whileHover={{ y: -4 }}
-      className="relative overflow-hidden p-6 sm:p-8 rounded-2xl transition-all duration-300 border bg-white border-brand-subtle hover:border-brand-blue/25 hover:shadow-md hover:shadow-brand-blue/5 text-brand-dark cursor-pointer shadow-sm shadow-brand-dark/5"
+      style={{
+        ...(bgColor ? { backgroundColor: bgColor } : {}),
+        ...(textColor ? { color: textColor } : {}),
+      }}
+      className={cn(
+        "relative overflow-hidden p-6 sm:p-8 rounded-2xl transition-all duration-300 border border-brand-subtle hover:border-brand-blue/25 hover:shadow-md hover:shadow-brand-blue/5 cursor-pointer shadow-sm shadow-brand-dark/5",
+        !bgColor && "bg-white",
+        !textColor && "text-brand-dark",
+      )}
     >
-      <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 bg-brand-subtle/50 text-icon-tertiary">
+      <div
+        className={cn(
+          "w-11 h-11 rounded-xl flex items-center justify-center mb-5",
+          bgColor ? "bg-current/10" : "bg-brand-subtle/50",
+          !textColor && "text-icon-tertiary",
+        )}
+      >
         {iconUrl ? (
           <img src={iconUrl} alt={title} className="w-5 h-5 object-contain" />
         ) : (
           <Zap size={20} />
         )}
       </div>
-      <h3 className="text-lg sm:text-xl font-display font-bold mb-3 text-text-primary">{title}</h3>
+      <h3 className={cn("text-lg sm:text-xl font-display font-bold mb-3", !textColor && "text-text-primary")}>{title}</h3>
       <div className="space-y-3">
         <div>
-          <p className="text-11 uppercase tracking-widest font-semibold mb-1 text-text-secondary/60">Hard Science</p>
-          <p className="text-sm leading-relaxed text-text-secondary">{science}</p>
+          <p className={cn("text-11 uppercase tracking-widest font-semibold mb-1", textColor ? "opacity-60" : "text-text-secondary/60")}>Hard Science</p>
+          <p className={cn("text-sm leading-relaxed", textColor ? "opacity-80" : "text-text-secondary")}>{science}</p>
         </div>
         <div>
-          <p className="text-11 uppercase tracking-widest font-semibold mb-1 text-text-secondary/60">Clinical Target</p>
-          <p className="text-sm font-medium leading-relaxed text-text-primary">{target}</p>
+          <p className={cn("text-11 uppercase tracking-widest font-semibold mb-1", textColor ? "opacity-60" : "text-text-secondary/60")}>Clinical Target</p>
+          <p className={cn("text-sm font-medium leading-relaxed", !textColor && "text-text-primary")}>{target}</p>
         </div>
       </div>
     </motion.div>
@@ -47,6 +68,8 @@ export default function AccessPointsSection({ data, wrapperClass }: { data?: Acc
     science: ap.science ?? "",
     target: ap.target ?? "",
     iconUrl: getStrapiMedia(ap.icon?.url ?? null),
+    bgColor: ap.bgColor,
+    textColor: ap.textColor,
   })) ?? defaultAccessPoints;
 
   return (

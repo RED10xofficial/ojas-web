@@ -339,6 +339,8 @@ export interface AccessPointCard {
   science?: string;
   target?: string;
   icon?: StrapiMedia;
+  bgColor?: string;
+  textColor?: string;
 }
 
 export interface AccessPointsSection {
