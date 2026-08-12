@@ -11,6 +11,8 @@ const ALL_STATIC_TAGS = [
   "about-page",
   "pricing-page",
   "developer-api-page",
+  "hospitals-page",
+  "ivf-page",
   "blogs-page",
   "blogs",
   "research-papers-page",

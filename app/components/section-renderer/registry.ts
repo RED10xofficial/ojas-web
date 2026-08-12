@@ -41,6 +41,24 @@ import DeveloperIntegrateSection from "@/app/(developer-api)/widgets/DeveloperIn
 import DeveloperMarqueeSection from "@/app/(developer-api)/widgets/DeveloperMarqueeSection";
 import DeveloperCapabilitiesSection from "@/app/(developer-api)/widgets/DeveloperCapabilitiesSection";
 
+/* ── Hospitals ── */
+import HospitalsHeroSection from "@/app/(hospitals)/widgets/HospitalsHeroSection";
+import HospitalsProblemSection from "@/app/(hospitals)/widgets/HospitalsProblemSection";
+import HospitalsBuildSection from "@/app/(hospitals)/widgets/HospitalsBuildSection";
+import HospitalsProofSection from "@/app/(hospitals)/widgets/HospitalsProofSection";
+import HospitalsTrustBarSection from "@/app/(hospitals)/widgets/HospitalsTrustBarSection";
+import HospitalsCtaSection from "@/app/(hospitals)/widgets/HospitalsCtaSection";
+
+/* ── IVF ── */
+import IvfHeroSection from "@/app/(ivf)/widgets/IvfHeroSection";
+import IvfProblemSection from "@/app/(ivf)/widgets/IvfProblemSection";
+import IvfCapabilitiesSection from "@/app/(ivf)/widgets/IvfCapabilitiesSection";
+import IvfImpactSection from "@/app/(ivf)/widgets/IvfImpactSection";
+import IvfProofSection from "@/app/(ivf)/widgets/IvfProofSection";
+import IvfTeamSection from "@/app/(ivf)/widgets/IvfTeamSection";
+import IvfMarqueeSection from "@/app/(ivf)/widgets/IvfMarqueeSection";
+import IvfApplySection from "@/app/(ivf)/widgets/IvfApplySection";
+
 /* ── Contact ── */
 import ContactForm from "@/app/(contact-us)/widgets/ContactForm";
 import ContactOffices from "@/app/(contact-us)/widgets/ContactOffices";
@@ -129,6 +147,24 @@ export const COMPONENT_MAP: Record<string, SectionComponent> = {
   "developer-api-page.developer-marquee-section": DeveloperMarqueeSection,
   "developer-api-page.developer-capabilities-section":
     DeveloperCapabilitiesSection,
+
+  /* ── Hospitals ── */
+  "hospitals-page.hospitals-hero-section": HospitalsHeroSection,
+  "hospitals-page.hospitals-problem-section": HospitalsProblemSection,
+  "hospitals-page.hospitals-build-section": HospitalsBuildSection,
+  "hospitals-page.hospitals-proof-section": HospitalsProofSection,
+  "hospitals-page.hospitals-trust-bar-section": HospitalsTrustBarSection,
+  "hospitals-page.hospitals-cta-section": HospitalsCtaSection,
+
+  /* ── IVF ── */
+  "ivf-page.ivf-hero-section": IvfHeroSection,
+  "ivf-page.ivf-problem-section": IvfProblemSection,
+  "ivf-page.ivf-capabilities-section": IvfCapabilitiesSection,
+  "ivf-page.ivf-impact-section": IvfImpactSection,
+  "ivf-page.ivf-proof-section": IvfProofSection,
+  "ivf-page.ivf-team-section": IvfTeamSection,
+  "ivf-page.ivf-marquee-section": IvfMarqueeSection,
+  "ivf-page.ivf-apply-section": IvfApplySection,
 
   /* ── Contact ── */
   "contact-page.contact-form-section": ContactForm,

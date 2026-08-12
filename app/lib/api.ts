@@ -11,6 +11,8 @@ import type {
   AboutPageData,
   PricingPageData,
   DeveloperApiPageData,
+  HospitalsPageData,
+  IvfPageData,
   JobApplicationPayload,
   ContactSubmissionPayload,
   NewsletterSubscriptionPayload,
@@ -44,6 +46,8 @@ export const CACHE_TAGS = {
   aboutPage: "about-page",
   pricingPage: "pricing-page",
   developerApiPage: "developer-api-page",
+  hospitalsPage: "hospitals-page",
+  ivfPage: "ivf-page",
   blogsPage: "blogs-page",
   blogs: "blogs",
   blog: (slug: string) => `blog-${slug}`,
@@ -181,6 +185,14 @@ export const getDeveloperApiPage = () =>
   getSecure<DeveloperApiPageData>("/api/developer-api-page/full", [
     CACHE_TAGS.developerApiPage,
   ]);
+
+export const getHospitalsPage = () =>
+  getSecure<HospitalsPageData>("/api/hospitals-page/full", [
+    CACHE_TAGS.hospitalsPage,
+  ]);
+
+export const getIvfPage = () =>
+  getSecure<IvfPageData>("/api/ivf-page/full", [CACHE_TAGS.ivfPage]);
 
 export const getWhitePaperPage = () =>
   getSecure<WhitePaperPageData>("/api/white-paper-page/full", [

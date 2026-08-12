@@ -8,6 +8,8 @@ import type {
   AboutPageSection,
   PricingPageSection,
   DeveloperApiPageSection,
+  HospitalsPageSection,
+  IvfPageSection,
   BlogsPageSection,
   ResearchPapersPageSection,
   CaseStudiesPageSection,
@@ -28,6 +30,8 @@ type AnySection =
   | AboutPageSection
   | PricingPageSection
   | DeveloperApiPageSection
+  | HospitalsPageSection
+  | IvfPageSection
   | BlogsPageSection
   | ResearchPapersPageSection
   | CaseStudiesPageSection

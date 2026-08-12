@@ -341,6 +341,9 @@ export interface AccessPointCard {
   icon?: StrapiMedia;
   bgColor?: string;
   textColor?: string;
+  /** Optional redirect target; the whole card becomes clickable when set. */
+  href?: string;
+  newTab?: boolean;
 }
 
 export interface AccessPointsSection {
@@ -2303,6 +2306,344 @@ export interface UseCasesPageData {
   sections: UseCasesPageSection[];
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   HOSPITALS PAGE TYPES
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Credential pill shown in the hero and CTA tickers. */
+export interface HospitalsTrustBadge {
+  id: number;
+  title: string;
+  icon?: StrapiMedia;
+}
+
+/* ─── Hero ─── */
+export interface HospitalsHeroSection {
+  __component: "hospitals-page.hospitals-hero-section";
+  id: number;
+  anchorId?: string;
+  wrapperClass?: string;
+  title: string;
+  /* Second heading line, rendered in the accent colour. */
+  titleAccent?: string;
+  description?: string;
+  calloutText?: string;
+  trustBadges?: HospitalsTrustBadge[];
+  buttonText?: string;
+  sectionStyle?: SectionStyle;
+}
+
+/* ─── Problem ─── */
+export interface HospitalsProblemStep {
+  id: number;
+  number: string;
+  title: string;
+  description: string;
+  icon?: StrapiMedia;
+}
+
+export interface HospitalsProblemSection {
+  __component: "hospitals-page.hospitals-problem-section";
+  id: number;
+  anchorId?: string;
+  wrapperClass?: string;
+  /* Markdown: `**bold**` renders in the accent colour. */
+  title: string;
+  frameImage?: StrapiMedia;
+  /* The choreography is built for four steps; more are scrolled through. */
+  steps?: HospitalsProblemStep[];
+  sectionStyle?: SectionStyle;
+}
+
+/* ─── Build ─── */
+export interface HospitalsBuildRoom {
+  id: number;
+  number: string;
+  title: string;
+  description: string;
+  icon?: StrapiMedia;
+}
+
+export interface HospitalsBuildSection {
+  __component: "hospitals-page.hospitals-build-section";
+  id: number;
+  anchorId?: string;
+  wrapperClass?: string;
+  title: string;
+  /* Second heading line, same colour as the first. */
+  titleSecondLine?: string;
+  rooms?: HospitalsBuildRoom[];
+  buttonText?: string;
+  sectionStyle?: SectionStyle;
+}
+
+/* ─── Proof ─── */
+export interface HospitalsProofPage {
+  id: number;
+  category: string;
+  title: string;
+  description: string;
+  icon?: StrapiMedia;
+}
+
+export interface HospitalsProofSection {
+  __component: "hospitals-page.hospitals-proof-section";
+  id: number;
+  anchorId?: string;
+  wrapperClass?: string;
+  title: string;
+  frameImage?: StrapiMedia;
+  /* Polaroid beside the notepad; the frame is hidden when unset. */
+  attachmentImage?: StrapiMedia;
+  attachmentLabel?: string;
+  pages?: HospitalsProofPage[];
+  buttonText?: string;
+  sectionStyle?: SectionStyle;
+}
+
+/* ─── Trust bar ─── */
+export interface HospitalsTrustBarSection {
+  __component: "hospitals-page.hospitals-trust-bar-section";
+  id: number;
+  anchorId?: string;
+  wrapperClass?: string;
+  title: string;
+  partners?: { id: number; title: string }[];
+  /* Markdown: `**bold**` renders in the accent colour. */
+  calloutText?: string;
+  sectionStyle?: SectionStyle;
+}
+
+/* ─── CTA / assessment form ─── */
+export interface HospitalsCtaSection {
+  __component: "hospitals-page.hospitals-cta-section";
+  id: number;
+  anchorId?: string;
+  wrapperClass?: string;
+  title: string;
+  /* Second heading line, rendered in the accent colour on mobile. */
+  titleSecondLine?: string;
+  description?: string;
+  buttonText?: string;
+  /* Markdown: `**bold**` renders in the accent colour. */
+  noticeText?: string;
+  trustBadges?: HospitalsTrustBadge[];
+  sectionStyle?: SectionStyle;
+}
+
+export type HospitalsPageSection =
+  | HospitalsHeroSection
+  | HospitalsProblemSection
+  | HospitalsBuildSection
+  | HospitalsProofSection
+  | HospitalsTrustBarSection
+  | HospitalsCtaSection
+  | FaqSection
+  | StatsSection
+  | ScrollerSection
+  | ComplianceSection
+  | PricingSection
+  | TestimonialSection
+  | PublicationsSection
+  | CustomCodeSection;
+
+/* ─── Hospitals Page Response ─── */
+export interface HospitalsPageData {
+  id: number;
+  seo?: SeoData;
+  customCss?: string;
+  sections: HospitalsPageSection[];
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   IVF PAGE TYPES
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Credential pill shown in the hero and pre-apply tickers. */
+export interface IvfCredential {
+  id: number;
+  title: string;
+}
+
+/* ─── Hero ─── */
+export interface IvfHeroSection {
+  __component: "ivf-page.ivf-hero-section";
+  id: number;
+  anchorId?: string;
+  wrapperClass?: string;
+  title: string;
+  /* Second heading line, same colour as the first. */
+  titleSecondLine?: string;
+  /* Third heading line, rendered in the accent colour. */
+  titleAccent?: string;
+  description?: string;
+  /* Rendered under the description in the accent colour. */
+  calloutText?: string;
+  /* Washed-out backdrop inside the photo frame; omitted when unset. */
+  frameImage?: StrapiMedia;
+  credentials?: IvfCredential[];
+  buttonText?: string;
+  sectionStyle?: SectionStyle;
+}
+
+/* ─── Problem ─── */
+export interface IvfProblemStep {
+  id: number;
+  number: string;
+  description: string;
+}
+
+export interface IvfProblemSection {
+  __component: "ivf-page.ivf-problem-section";
+  id: number;
+  anchorId?: string;
+  wrapperClass?: string;
+  title: string;
+  /* Badge pinned at the centre of the loop. */
+  badgeText?: string;
+  /* The arrow choreography is built for four steps laid out 2x2. */
+  steps?: IvfProblemStep[];
+  sectionStyle?: SectionStyle;
+}
+
+/* ─── Capabilities (scroll-pinned diagnostic lens) ─── */
+export interface IvfCapabilityModule {
+  id: number;
+  title: string;
+  description: string;
+  /* Reads out beneath the lens while the module is active. */
+  statusLabel?: string;
+}
+
+export interface IvfCapabilitiesSection {
+  __component: "ivf-page.ivf-capabilities-section";
+  id: number;
+  anchorId?: string;
+  wrapperClass?: string;
+  title: string;
+  /* Middle heading phrase, rendered in the accent colour. */
+  titleAccent?: string;
+  titleSuffix?: string;
+  /* Each module reuses the lens visual and icon in the same slot. */
+  modules?: IvfCapabilityModule[];
+  sectionStyle?: SectionStyle;
+}
+
+/* ─── Impact ─── */
+export interface IvfImpactItem {
+  id: number;
+  title: string;
+  description: string;
+}
+
+export interface IvfImpactSection {
+  __component: "ivf-page.ivf-impact-section";
+  id: number;
+  anchorId?: string;
+  wrapperClass?: string;
+  title: string;
+  items?: IvfImpactItem[];
+  sectionStyle?: SectionStyle;
+}
+
+/* ─── Proof (page-tear notepad) ─── */
+export interface IvfProofPage {
+  id: number;
+  title: string;
+}
+
+export interface IvfProofSection {
+  __component: "ivf-page.ivf-proof-section";
+  id: number;
+  anchorId?: string;
+  wrapperClass?: string;
+  title: string;
+  description?: string;
+  /* One torn page per entry; the pinned scroll length follows the count. */
+  pages?: IvfProofPage[];
+  buttonText?: string;
+  sectionStyle?: SectionStyle;
+}
+
+/* ─── Founding team ─── */
+export interface IvfTeamMember {
+  id: number;
+  name: string;
+  role: string;
+  description: string;
+  /* Falls back to an initials placeholder when unset. */
+  photo?: StrapiMedia;
+}
+
+export interface IvfTeamSection {
+  __component: "ivf-page.ivf-team-section";
+  id: number;
+  anchorId?: string;
+  wrapperClass?: string;
+  title: string;
+  members?: IvfTeamMember[];
+  /* Highlighted word by word as it scrolls into view. */
+  closingText?: string;
+  sectionStyle?: SectionStyle;
+}
+
+/* ─── Marquee ─── */
+export interface IvfMarqueeSection {
+  __component: "ivf-page.ivf-marquee-section";
+  id: number;
+  anchorId?: string;
+  wrapperClass?: string;
+  credentials?: IvfCredential[];
+  sectionStyle?: SectionStyle;
+}
+
+/* ─── Apply / partnership form ─── */
+export interface IvfApplyNote {
+  id: number;
+  title: string;
+}
+
+export interface IvfApplySection {
+  __component: "ivf-page.ivf-apply-section";
+  id: number;
+  anchorId?: string;
+  wrapperClass?: string;
+  title: string;
+  description?: string;
+  /* Supporting lines under the description, one per row. */
+  notes?: IvfApplyNote[];
+  buttonText?: string;
+  quoteText?: string;
+  quoteAuthor?: string;
+  sectionStyle?: SectionStyle;
+}
+
+export type IvfPageSection =
+  | IvfHeroSection
+  | IvfProblemSection
+  | IvfCapabilitiesSection
+  | IvfImpactSection
+  | IvfProofSection
+  | IvfTeamSection
+  | IvfMarqueeSection
+  | IvfApplySection
+  | FaqSection
+  | StatsSection
+  | ScrollerSection
+  | ComplianceSection
+  | PricingSection
+  | TestimonialSection
+  | PublicationsSection
+  | CustomCodeSection;
+
+/* ─── IVF Page Response ─── */
+export interface IvfPageData {
+  id: number;
+  seo?: SeoData;
+  customCss?: string;
+  sections: IvfPageSection[];
+}
+
 /* ─── Job Application Submission ─── */
 export interface JobApplicationPayload {
   firstName: string;
@@ -2315,12 +2656,17 @@ export interface JobApplicationPayload {
 }
 
 /* ─── Contact Form Submission ─── */
+/** Which page's form the submission came from; defaults to contact-us. */
+export type ContactSubmissionSource = "contact-us" | "hospitals" | "ivf";
+
 export interface ContactSubmissionPayload {
   name: string;
   institution?: string;
   department?: string;
   email: string;
+  phone?: string;
   message: string;
+  source?: ContactSubmissionSource;
 }
 
 /* ─── Newsletter Subscription ─── */
