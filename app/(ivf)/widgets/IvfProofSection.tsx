@@ -70,7 +70,7 @@ function NotepadPageCard({
   return (
     <motion.div
       style={styleObj}
-      className="absolute inset-0 flex flex-col justify-between overflow-hidden rounded-b-xl border border-t-0 border-brand-subtle bg-bg-surface shadow-xl bg-[linear-gradient(to_bottom,transparent_27px,rgba(107,98,95,0.06)_28px)] bg-[size:100%_28px] p-5 sm:p-6 md:p-8"
+      className="absolute inset-0 flex flex-col justify-between  rounded-b-xl border border-t-0 border-brand-subtle bg-bg-surface shadow-xl bg-[linear-gradient(to_bottom,transparent_27px,rgba(107,98,95,0.06)_28px)] bg-[size:100%_28px] p-5 sm:p-6 md:p-8"
     >
       <div className="flex items-center justify-between gap-3 text-10 sm:text-11 font-mono font-bold uppercase tracking-widest text-slate-550 shrink-0">
         <span className="flex items-center gap-1.5">
@@ -164,7 +164,7 @@ export default function IvfProofSection({
       )}
     >
       {/* Sticky pinned view, offset to clear the floating header */}
-      <div className="sticky top-0 h-svh w-full overflow-hidden max-w-7xl mx-auto flex flex-col gap-4 sm:gap-6 pt-28 sm:pt-30 pb-5 px-4 sm:px-6 lg:px-8">
+      <div className="sticky top-0 h-svh w-full  max-w-7xl mx-auto flex flex-col gap-4 sm:gap-6 pt-28 sm:pt-30 pb-5 px-4 sm:px-6 lg:px-8">
         {/* z-20 keeps the heading above the sheets as they tear away */}
         <header className="relative z-20 shrink-0 max-w-4xl mx-auto w-full text-center border-b border-brand-subtle bg-bg-page pb-3">
           <h2 className="text-20 sm:text-32 lg:text-48 leading-[1.15] font-display font-medium text-text-primary">
@@ -194,7 +194,7 @@ export default function IvfProofSection({
             </div>
 
             {/* Stacked pages viewport; clipped so torn sheets leave the pad cleanly */}
-            <div className="relative flex-1 min-h-0 overflow-hidden perspective-[1200px]">
+            <div className="relative flex-1 min-h-0  perspective-[1200px]">
               {/* Paper depth layers */}
               <div className="absolute inset-0 rounded-b-xl bg-[#E3DAD3] translate-y-2 scale-[0.97] border border-[#D5C9C0] shadow-xs pointer-events-none" />
               <div className="absolute inset-0 rounded-b-xl bg-[#F0E8E1] translate-y-1 scale-[0.985] border border-[#E0D5CC] shadow-sm pointer-events-none" />
@@ -225,7 +225,7 @@ export default function IvfProofSection({
             <span>{String(pages.length).padStart(2, "0")}</span>
           </div>
 
-          <div className="w-full sm:w-40 md:w-56 h-1.5 bg-brand-subtle rounded-full overflow-hidden">
+          <div className="w-full sm:w-40 md:w-56 h-1.5 bg-brand-subtle rounded-full ">
             <motion.div
               className="h-full bg-brand-blue rounded-full"
               style={{ width: progressWidth }}
@@ -239,7 +239,7 @@ export default function IvfProofSection({
                 type="button"
                 onClick={() => scrollToPageIndex(idx)}
                 className={cn(
-                  "w-5 h-5 sm:w-6 sm:h-6 rounded-full text-10 sm:text-11 font-bold flex items-center justify-center transition-all cursor-pointer",
+                  "w-6 h-6 rounded-full text-11 font-bold flex items-center justify-center transition-all cursor-pointer",
                   activePageIndex === idx
                     ? "bg-brand-blue text-white shadow-xs scale-105"
                     : "bg-white border border-brand-subtle text-text-secondary hover:border-brand-blue hover:text-text-primary",

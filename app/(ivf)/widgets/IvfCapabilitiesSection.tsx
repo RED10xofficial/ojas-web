@@ -418,17 +418,22 @@ export default function IvfCapabilitiesSection({
 
                   <div className="flex items-center gap-1.5">
                     {modules.map((module, idx) => (
+                      /* The bar stays 6px tall; the button around it is a 24px target. */
                       <button
                         key={`${module.title}-dot-${idx}`}
                         onClick={() => scrollToMilestone(idx)}
-                        className={cn(
-                          "h-1.5 rounded-full transition-all duration-300 cursor-pointer",
-                          idx === activeIndex
-                            ? "w-8 bg-brand-blue"
-                            : "w-2 bg-slate-200 hover:bg-brand-blue/50",
-                        )}
+                        className="h-6 flex items-center cursor-pointer"
                         aria-label={`Go to module ${idx + 1}`}
-                      />
+                      >
+                        <span
+                          className={cn(
+                            "h-1.5 rounded-full transition-all duration-300",
+                            idx === activeIndex
+                              ? "w-8 bg-brand-blue"
+                              : "w-2 bg-slate-200 hover:bg-brand-blue/50",
+                          )}
+                        />
+                      </button>
                     ))}
                   </div>
                 </div>

@@ -240,8 +240,9 @@ export default function HospitalsCtaSection({
   return (
     <section
       id={ASSESSMENT_FORM_ID}
+      /* scroll-mt keeps the heading clear of the floating header on CTA jumps. */
       className={cn(
-        "py-16 sm:py-24 bg-bg-surface border-t border-brand-subtle",
+        "scroll-mt-28 sm:scroll-mt-32 py-16 sm:py-24 bg-bg-surface border-t border-brand-subtle",
         wrapperClass,
       )}
     >

@@ -142,9 +142,9 @@ export default function HospitalsBuildSection({
       className={cn("relative h-[500vh] bg-bg-page", wrapperClass)}
     >
       {/* Sticky pinned view, offset to clear the floating header */}
-      <div className="sticky top-0 h-svh w-full overflow-hidden max-w-7xl mx-auto flex flex-col gap-4 sm:gap-6 pt-24 pb-5 px-3 sm:px-6 lg:px-8">
+      <div className="sticky top-0 h-svh w-full overflow-hidden max-w-7xl mx-auto flex flex-col gap-3 sm:gap-6 pt-20 sm:pt-24 pb-4 sm:pb-5 px-3 sm:px-6 lg:px-8">
         <header className="shrink-0 z-10 max-w-5xl mx-auto w-full text-center border-b border-brand-subtle pb-3">
-          <h2 className="text-24 sm:text-32 lg:text-48 leading-[1.15] font-display font-medium text-text-primary">
+          <h2 className="text-20 sm:text-32 lg:text-48 leading-[1.15] font-display font-medium text-text-primary">
             <span className="block">{title}</span>
             {titleSecondLine && (
               <span className="block mt-1 sm:mt-2">{titleSecondLine}</span>
@@ -153,7 +153,7 @@ export default function HospitalsBuildSection({
         </header>
 
         {/* ── Scenic corridor track ── */}
-        <div className="relative w-full max-w-5xl mx-auto flex-1 min-h-[150px] flex items-center overflow-hidden rounded-2xl bg-white border border-brand-subtle shadow-lg">
+        <div className="relative w-full max-w-5xl mx-auto flex-1 min-h-[120px] sm:min-h-[150px] flex items-center overflow-hidden rounded-2xl bg-white border border-brand-subtle shadow-lg">
           {/* Architectural ceiling lighting lines */}
           <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-brand-dark/10 to-transparent z-20" />
           <div className="absolute top-4 inset-x-0 flex justify-around opacity-40 z-10 pointer-events-none">
@@ -459,7 +459,7 @@ export default function HospitalsBuildSection({
                       {activeRoom.title}
                     </h3>
                   </div>
-                  <p className="text-14 sm:text-16 leading-relaxed text-text-secondary font-medium line-clamp-3 sm:line-clamp-none">
+                  <p className="text-14 sm:text-16 leading-relaxed text-text-secondary font-medium line-clamp-2 sm:line-clamp-3 md:line-clamp-none">
                     {activeRoom.description}
                   </p>
                 </div>
@@ -480,17 +480,22 @@ export default function HospitalsBuildSection({
         <footer className="shrink-0 max-w-7xl mx-auto w-full flex justify-center items-center border-t border-brand-subtle pt-3">
           <div className="flex gap-2">
             {rooms.map((room, idx) => (
+              /* The bar stays 6px tall; the button around it is a 24px target. */
               <button
                 key={room.number}
                 onClick={() => scrollToDoor(idx)}
-                className={cn(
-                  "h-1.5 rounded-full transition-all duration-300 cursor-pointer",
-                  activeDoor === idx
-                    ? "w-8 bg-brand-blue"
-                    : "w-2 bg-slate-200 hover:bg-brand-blue/50",
-                )}
+                className="h-6 flex items-center cursor-pointer"
                 aria-label={`Go to room ${idx + 1}`}
-              />
+              >
+                <span
+                  className={cn(
+                    "h-1.5 rounded-full transition-all duration-300",
+                    activeDoor === idx
+                      ? "w-8 bg-brand-blue"
+                      : "w-2 bg-slate-200 hover:bg-brand-blue/50",
+                  )}
+                />
+              </button>
             ))}
           </div>
         </footer>

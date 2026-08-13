@@ -327,8 +327,8 @@ export default function HospitalsProofSection({
                 <div className="w-full border-t-2 border-dashed border-slate-300" />
               </div>
 
-              {/* Stacked paper pages viewport */}
-              <div className="w-full flex-1 min-h-[250px] relative perspective-[1200px]">
+              {/* Stacked pages viewport; clipped so torn sheets leave the pad cleanly */}
+              <div className="w-full flex-1 min-h-[250px] relative overflow-hidden perspective-[1200px]">
                 {/* Paper depth layers */}
                 <div className="absolute inset-0 bg-slate-200 rounded-b-2xl translate-y-2 scale-[0.97] border border-slate-300 shadow-xs pointer-events-none" />
                 <div className="absolute inset-0 bg-slate-100 rounded-b-2xl translate-y-1 scale-[0.985] border border-slate-200 shadow-sm pointer-events-none" />
