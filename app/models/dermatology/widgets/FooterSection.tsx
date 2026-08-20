@@ -1,9 +1,9 @@
 import Link from "next/link";
 import type { DermaFooterSection } from "@/app/lib/types";
+import OjasLogo from "@/app/components/header/OjasLogo";
 import { cn } from "@/app/lib/cn";
 
 export default function FooterSection({ data, wrapperClass }: { data?: DermaFooterSection; wrapperClass?: string }) {
-  const logoText = data?.logoText ?? "OJAS";
   const companyDescription = data?.companyDescription ?? "An advanced multi-modal diagnostic software framework engineered for clinical providers, medical centers, and professional wellness algorithms.";
   const copyrightText = data?.copyrightText ?? `© ${new Date().getFullYear()} OJAS Systems Core. All rights reserved.`;
   const bottomText = data?.bottomText ?? "Designed and vetted in collaboration with the Scientific Steering Board.";
@@ -52,20 +52,10 @@ export default function FooterSection({ data, wrapperClass }: { data?: DermaFoot
       <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 xl:px-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
           <div className="lg:col-span-2 lg:pr-8">
+            {/* The lockup carries the wordmark itself, so the CMS `logoText`
+                no longer has anywhere to render. */}
             <div className="flex items-center gap-2 mb-4">
-              <svg viewBox="0 0 40 40" className="w-8 h-8 text-brand-blue animate-[spin_40s_linear_infinite]" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g transform="translate(20, 20)">
-                  {[0, 72, 144, 216, 288].map((angle) => (
-                    <path
-                      key={angle}
-                      transform={`rotate(${angle})`}
-                      d="M 0,-4.5 C 2.5,-4.5 5,-6 6,-10 C 7,-14 4.5,-17.5 0,-16.5 C -4.5,-15.5 -5,-11 -4.5,-7.5 C -4,-4 -2,-4 0,-4.5 Z"
-                      fill="currentColor"
-                    />
-                  ))}
-                </g>
-              </svg>
-              <span className="font-display font-black text-xl tracking-widest text-[#5AB2FF] uppercase">{logoText}</span>
+              <OjasLogo />
             </div>
             <p className="text-xs text-slate-400 max-w-sm leading-relaxed mb-6 font-medium">
               {companyDescription}
