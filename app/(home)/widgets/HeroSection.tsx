@@ -7,6 +7,7 @@ import type { HeroSection as HeroSectionData } from "@/app/lib/types";
 import MarkdownText from "../components/MarkdownText";
 import Image from "next/image";
 import { getStrapiMedia } from "@/app/lib/strapi";
+import { openChatWithQuery } from "@/app/lib/chat";
 import { cn } from "@/app/lib/cn";
 
 const defaultPhrases = [
@@ -90,11 +91,7 @@ export default function HeroSection({ data, wrapperClass }: { data?: HeroSection
               onSubmit={(e) => {
                 e.preventDefault();
                 const input = e.currentTarget.elements.namedItem("query") as HTMLInputElement;
-                const q = input?.value.trim();
-                const url = q
-                  ? `https://chat.ojaslife.ai/?q=${encodeURIComponent(q)}`
-                  : "https://chat.ojaslife.ai/";
-                window.open(url, "_blank", "noopener,noreferrer");
+                openChatWithQuery(input?.value);
               }}
             >
               <input

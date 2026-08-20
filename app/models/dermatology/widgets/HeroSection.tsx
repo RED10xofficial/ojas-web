@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "motion/react";
 import { ArrowLeft, ShieldCheck, Sparkles } from "lucide-react";
 import type { DermaHeroSection } from "@/app/lib/types";
+import { openChatWithQuery } from "@/app/lib/chat";
 import { cn } from "@/app/lib/cn";
 
 const defaultPrompts = [
@@ -63,51 +63,12 @@ export default function HeroSection({
   const [typingSpeed, setTypingSpeed] = useState(100);
 
   const [isUserTyping, setIsUserTyping] = useState(false);
-  const [searchResults, setSearchResults] = useState<string | null>(null);
-  const [isSearchingText, setIsSearchingText] = useState(false);
 
+  /** Hands the prompt to the chat product, matching the home hero. */
   const handleSearchSubmit = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     if (!promptText.trim()) return;
-    setIsSearchingText(true);
-    setSearchResults(null);
-
-    setTimeout(() => {
-      setIsSearchingText(false);
-      const query = promptText.toLowerCase();
-      if (
-        query.includes("mole") ||
-        query.includes("melanoma") ||
-        query.includes("cancer") ||
-        query.includes("spot")
-      ) {
-        setSearchResults(
-          "OJAS Analysis: High-resolution visual scan shows a 7.2mm asymmetric lesion. Margin analysis displays irregular branching pseudopods. Recommended clinical action: Immediate dermoscopy referral to triage suspected malignant melanoma. (Confidence: 98.4%)",
-        );
-      } else if (
-        query.includes("dry") ||
-        query.includes("eczema") ||
-        query.includes("itch") ||
-        query.includes("atopic")
-      ) {
-        setSearchResults(
-          "OJAS Analysis: Mapped epidermal moisture level at 32% (critical dehydration). Symmetrical erythematous plaques detected. Highly suggestive of Atopic Dermatitis. Recommended action: Daily ceramide-based moisture-barrier restoration and non-steroidal topical sequence.",
-        );
-      } else if (
-        query.includes("flake") ||
-        query.includes("scale") ||
-        query.includes("psoriasis") ||
-        query.includes("red")
-      ) {
-        setSearchResults(
-          "OJAS Analysis: Multi-spectral imaging reveals active hyperkeratosis with silvery scaling over a raised erythematous base. Consistent with Plaque Psoriasis. Recommended action: Localized phototherapy NB-UVB combined with topical calcipotriol base mapping.",
-        );
-      } else {
-        setSearchResults(
-          `OJAS Multi-Spectral Analysis for &quot;${promptText}&quot;: Cellular pattern mapping indicates normal Fitzpatrick photo-reactive structure. No high-risk atypical lesion signatures or neoplastic developments detected. Suggest regular hydration and broad-spectrum SPF 50 monitoring. (Confidence: 95.7%)`,
-        );
-      }
-    }, 1200);
+    openChatWithQuery(promptText);
   };
 
   useEffect(() => {
@@ -201,7 +162,9 @@ export default function HeroSection({
               className="w-full bg-white border border-brand-subtle rounded-3xl py-5 px-8 pr-32 text-md md:text-lg text-text-secondary focus:outline-none focus:ring-4 focus:ring-brand-blue/10 shadow-lg shadow-brand-dark/2 border-brand-blue/20 transition-all placeholder:text-text-secondary/60 cursor-text font-medium"
               value={promptText}
               onChange={(e) => {
-                setIsUserTyping(true);
+                /* Derived, not latched: emptying the box resumes the demo
+                   typing, which the removed results panel used to do. */
+                setIsUserTyping(e.target.value.trim().length > 0);
                 setPromptText(e.target.value);
               }}
               onFocus={() => setIsUserTyping(true)}
@@ -216,59 +179,6 @@ export default function HeroSection({
             </button>
           </form>
 
-          <AnimatePresence>
-            {isSearchingText && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
-                className="mt-4 bg-white/80 backdrop-blur border border-brand-subtle p-6 rounded-3xl text-left shadow-md flex items-center gap-4"
-              >
-                <div className="w-8 h-8 rounded-full border-2 border-brand-blue/30 border-t-brand-blue animate-spin shrink-0" />
-                <div className="text-sm font-semibold text-text-secondary">
-                  OJAS multi-spectral cellular matrix analyzing clinical
-                  sequence queries...
-                </div>
-              </motion.div>
-            )}
-
-            {searchResults && !isSearchingText && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
-                className="mt-4 bg-white border border-brand-blue/30 p-6 sm:p-8 rounded-2xl text-left shadow-xl relative overflow-hidden"
-              >
-                <div className="absolute top-0 right-0 px-4 py-1.5 bg-brand-blue/10 border-l border-b border-brand-blue/20 text-brand-blue text-11 font-semibold uppercase tracking-wider rounded-bl-2xl">
-                  Verified clinical insight
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="p-3 bg-brand-blue/10 text-brand-blue rounded-2xl shrink-0">
-                    <ShieldCheck size={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-display font-black text-md text-text-primary uppercase tracking-wide mb-2">
-                      Diagnostic Feedback
-                    </h4>
-                    <p className="text-sm text-text-secondary leading-relaxed font-semibold">
-                      {searchResults}
-                    </p>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setPromptText("");
-                        setSearchResults(null);
-                        setIsUserTyping(false);
-                      }}
-                      className="mt-4 text-xs font-bold text-brand-blue hover:underline cursor-pointer animate-pulse"
-                    >
-                      Clear and restart auto-simulation
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
 
         <p className="text-text-primary text-14 font-semibold uppercase tracking-wide mb-16 select-none leading-none">

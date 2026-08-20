@@ -2413,11 +2413,6 @@ export interface HospitalsCtaSection {
   titleSecondLine?: string;
   description?: string;
   buttonText?: string;
-  /**
-   * Tags submissions coming from this instance, since the section can sit in any
-   * page's dynamic zone. Leave it unset and it falls back to "hospitals".
-   */
-  submissionSource?: ContactSubmissionSource;
   /* Markdown: `**bold**` renders in the accent colour. */
   noticeText?: string;
   trustBadges?: HospitalsTrustBadge[];

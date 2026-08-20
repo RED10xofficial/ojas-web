@@ -224,11 +224,7 @@ export default function HospitalsCtaSection({
       phone,
       institution: organization,
       department: "general",
-      /*
-       * This section can show up in any page's dynamic zone, so which form it belongs
-       * to is up to the CMS. Hospitals is just the default.
-       */
-      source: data?.submissionSource ?? "hospitals",
+      source: "hospitals",
       message: projectDescription,
     });
 
