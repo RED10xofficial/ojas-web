@@ -146,8 +146,10 @@ export default function IvfProofSection({
     const rect = containerRef.current.getBoundingClientRect();
     const containerTop = window.scrollY + rect.top;
     const scrollableHeight = rect.height - window.innerHeight;
-    /* The +0.15 bias lands inside the page's slice rather than on its edge,
-       where the spring can settle a hair short and show the previous page. */
+    /*
+     * The +0.15 nudge puts us inside the page's slice instead of right on the edge,
+     * where the spring can settle a hair short and flash the previous page.
+     */
     window.scrollTo({
       top: containerTop + ((index + 0.15) / pages.length) * scrollableHeight,
       behavior: "smooth",

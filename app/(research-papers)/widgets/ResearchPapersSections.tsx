@@ -4,9 +4,8 @@ import ResearchPapersExplorer from "./ResearchPapersExplorer";
 import type { ResearchPapersPageSection } from "@/app/lib/types";
 
 /**
- * Renders the research-papers-specific dynamic zone components in the order
- * they are arranged in the CMS. Non-research components (FAQ, stats, …) are
- * handled by the shared SectionRenderer on the page.
+ * Renders the research-papers-only sections in whatever order the CMS has them.
+ * Anything shared (FAQ, stats, …) goes through SectionRenderer up on the page.
  */
 export default function ResearchPapersSections({
   sections,

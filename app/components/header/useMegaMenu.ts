@@ -12,8 +12,8 @@ import type { CSSProperties } from "react";
 const CLOSE_DELAY_MS = 150;
 
 /**
- * Owns dropdown open/close state and keeps the panel centred under its
- * trigger button without letting it overflow the nav container.
+ * Owns the dropdown open/close state, and keeps the panel centred under its
+ * trigger button without letting it spill outside the nav container.
  */
 export function useMegaMenu() {
   const [activeId, setActiveId] = useState<number | null>(null);

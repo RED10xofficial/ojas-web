@@ -37,9 +37,8 @@ export default async function UseCaseDetailPage({ params }: Props) {
   if (!useCase) notFound();
 
   /**
-   * FAQs live on the use case itself rather than in the dynamic zone, so a
-   * page that has them renders a trailing FAQ block unless an explicit FAQ
-   * section was already placed in the zone.
+   * FAQs hang off the use case itself rather than the dynamic zone, so if a page has
+   * them we tack an FAQ block on the end, unless the zone already includes one.
    */
   const hasFaqSection = useCase.sections?.some(
     (section) => section.__component === "home-page.home-faq-section",

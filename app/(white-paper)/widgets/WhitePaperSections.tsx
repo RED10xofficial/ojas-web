@@ -3,9 +3,8 @@ import WhitePaperContent from "./WhitePaperContent";
 import type { WhitePaperPageSection } from "@/app/lib/types";
 
 /**
- * Renders the white-paper-specific dynamic zone components in the order they
- * are arranged in the CMS. Non-white-paper components (FAQ, stats, …) are
- * handled by the shared SectionRenderer on the page.
+ * Renders the white-paper-only sections in whatever order the CMS has them.
+ * Anything shared (FAQ, stats, …) goes through SectionRenderer up on the page.
  */
 export default function WhitePaperSections({
   sections,

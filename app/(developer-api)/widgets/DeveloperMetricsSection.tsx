@@ -2,9 +2,9 @@ import BenchmarksSection from "@/app/(home)/widgets/BenchmarksSection";
 import type { BenchmarksSection as BenchmarksSectionData } from "@/app/lib/types";
 
 /*
- * The metrics block reuses the home benchmarks widget verbatim. In the CMS the
- * section is authored as `home-page.home-benchmarks-section`, which SectionRenderer
- * maps straight to BenchmarksSection — this wrapper backs the static fallback.
+ * This is the home benchmarks widget, reused as-is. In the CMS it's authored as
+ * `home-page.home-benchmarks-section` and SectionRenderer maps it straight to
+ * BenchmarksSection, so this wrapper is only here for the static fallback.
  */
 export default function DeveloperMetricsSection({
   data,

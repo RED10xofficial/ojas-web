@@ -22,9 +22,9 @@ const USE_CASE_COMPONENTS = [
 ];
 
 /**
- * Renders a use case's dynamic zone in CMS order. Use-case-specific widgets
- * render directly; the reused home-page widgets are delegated to the shared
- * SectionRenderer one at a time so ordering is preserved across both sets.
+ * Renders a use case's dynamic zone in CMS order. Use-case widgets render here
+ * directly, while reused home-page ones get handed to SectionRenderer one at a
+ * time so the ordering holds across both sets.
  */
 export default function UseCaseSections({
   sections,

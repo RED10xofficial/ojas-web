@@ -6,9 +6,8 @@ import CaseStudiesTestimonial from "./CaseStudiesTestimonial";
 import type { CaseStudiesPageSection } from "@/app/lib/types";
 
 /**
- * Renders the case-studies-specific dynamic zone components in the order they
- * are arranged in the CMS. Non-case-studies components (FAQ, stats, …) are
- * handled by the shared SectionRenderer on the page.
+ * Renders the case-studies-only sections in whatever order the CMS has them.
+ * Anything shared (FAQ, stats, …) goes through SectionRenderer up on the page.
  */
 export default function CaseStudiesSections({
   sections,

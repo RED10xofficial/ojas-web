@@ -18,9 +18,10 @@ export default function WhyOjasSection({ data, wrapperClass }: { data?: WhyOjasS
 
   const headers = data?.tableHeaders?.map((h) => h.label) ?? defaultHeaders;
 
-  /* When CMS data: each row's cells hold values; cell[0] = feature label, cell[1] = other (✕/✓), cell[2] = ojas (✕/✓)
-     The original UI only shows feature names with hardcoded ✕ / ✓.
-     If CMS provides table rows we render from them; otherwise fall back to defaults. */
+  /*
+   * CMS table rows come through as cell[0] = feature name, cell[1] = competitor
+   * (✕/✓), cell[2] = ojas. If the CMS sends no rows we fall back to the defaults.
+   */
   const tableRows = data?.tableRows;
   const features = tableRows && tableRows.length > 0
     ? tableRows.map((r) => r.cells?.[0]?.value ?? "")

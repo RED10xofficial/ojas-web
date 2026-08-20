@@ -7,8 +7,8 @@ import type { HeaderCtaButton, HeaderNavLink } from "@/app/lib/types";
 type MobileItem = { label: string; href: string };
 
 /**
- * Mobile has no dropdowns, so every nav link — top level or nested inside a
- * mega menu block — is flattened into one de-duplicated list.
+ * There are no dropdowns on mobile, so every nav link gets flattened into a single
+ * de-duplicated list, whether it was top level or buried in a mega menu block.
  */
 function flattenNavLinks(navLinks: HeaderNavLink[]): MobileItem[] {
   const items = navLinks.flatMap<MobileItem>((link) => {

@@ -106,8 +106,8 @@ export default function HospitalsProblemSection({
   });
 
   /*
-   * One keyframe per step plus a trailing copy of the last one, so the tracker
-   * rests on the final landing for the tail of the scroll.
+   * One keyframe per step, plus a repeat of the last one so the tracker sits still
+   * on the final landing while the rest of the scroll plays out.
    */
   const stops = [...steps.map((_, idx) => idx / total), 1];
   const desktopX = [

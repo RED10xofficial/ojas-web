@@ -4,9 +4,8 @@ import BlogsNewsletter from "./BlogsNewsletter";
 import type { BlogsPageSection } from "@/app/lib/types";
 
 /**
- * Renders the blogs-specific dynamic zone components in the order they are
- * arranged in the CMS. Non-blogs components (FAQ, stats, …) are handled by
- * the shared SectionRenderer on the page.
+ * Renders the blogs-only sections in whatever order the CMS has them.
+ * Anything shared (FAQ, stats, …) goes through SectionRenderer up on the page.
  */
 export default function BlogsSections({
   sections,

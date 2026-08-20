@@ -4,9 +4,8 @@ import ModelsSafety from "./ModelsSafety";
 import type { ModelsIndexPageSection } from "@/app/lib/types";
 
 /**
- * Renders the models-index-specific dynamic zone components in CMS order.
- * Reused components (FAQ, stats, …) go through the shared SectionRenderer
- * on the page.
+ * Renders the models-index sections in whatever order the CMS has them.
+ * Anything shared (FAQ, stats, …) goes through SectionRenderer up on the page.
  */
 export default function ModelsIndexSections({
   sections,

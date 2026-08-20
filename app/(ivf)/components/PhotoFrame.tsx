@@ -2,8 +2,8 @@ import type { ReactNode } from "react";
 import { cn } from "@/app/lib/cn";
 
 /**
- * Bracketed frame the IVF hero sits inside. The image is a washed-out backdrop,
- * so it stays a CSS background rather than an <Image>.
+ * The bracketed frame the IVF hero sits inside. The image is just a washed-out
+ * backdrop, so it stays a CSS background instead of going through <Image>.
  */
 export default function PhotoFrame({
   children,

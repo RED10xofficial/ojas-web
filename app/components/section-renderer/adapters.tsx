@@ -14,9 +14,9 @@ import FoodReactionSection from "@/app/(use-cases)/widgets/FoodReactionSection";
 import SymptomTrapNarrativeSection from "@/app/(use-cases)/widgets/SymptomTrapNarrativeSection";
 
 /*
- * Use case widgets take their section as `section`, while the shared renderer
- * passes `data`. These adapters bridge the two rather than teaching every
- * widget a second prop name.
+ * Use case widgets expect their section as `section`, but the shared renderer
+ * hands over `data`. These adapters bridge the gap so we don't have to teach
+ * every widget a second prop name.
  */
 
 export function HormoneUniverseAdapter({

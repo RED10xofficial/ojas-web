@@ -31,9 +31,9 @@ const initialValues = {
 type AssessmentValues = typeof initialValues;
 
 /**
- * Mirrors the contact form's conventions: `.trim()` casts before validation, so
- * whitespace-only fields fail `required`, and `required` precedes the length
- * rules because Formik surfaces only the first error per field.
+ * Same conventions as the contact form: `.trim()` casts before validation so
+ * whitespace-only fields fail `required`, and `required` comes before the length
+ * rules since Formik only shows the first error per field.
  */
 const assessmentSchema = Yup.object({
   name: Yup.string()
@@ -224,7 +224,11 @@ export default function HospitalsCtaSection({
       phone,
       institution: organization,
       department: "general",
-      source: "hospitals",
+      /*
+       * This section can show up in any page's dynamic zone, so which form it belongs
+       * to is up to the CMS. Hospitals is just the default.
+       */
+      source: data?.submissionSource ?? "hospitals",
       message: projectDescription,
     });
 

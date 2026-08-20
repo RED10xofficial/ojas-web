@@ -34,11 +34,9 @@ const initialValues = {
 type ContactValues = typeof initialValues;
 
 /**
- * Two Yup behaviours this schema depends on:
- *  - `.trim()` runs as a cast (strict is off), so a whitespace-only field is
- *    validated — and submitted — as empty.
- *  - Formik shows the first error per field, so `.required()` is declared
- *    before `.min()`; otherwise an empty field reports the length rule.
+ * `.trim()` runs as a cast here (strict is off), so a whitespace-only field counts
+ * as empty. And since Formik only shows the first error per field, `.required()`
+ * has to come before `.min()`.
  */
 const contactSchema = Yup.object({
   name: Yup.string()
@@ -257,9 +255,9 @@ export default function ContactForm({
     { resetForm }: FormikHelpers<ContactValues>,
   ) => {
     /*
-     * Formik has already validated, so cast rather than re-validate: cast
-     * applies the schema's trims without a throw path, and a rejection here
-     * would leave Formik stuck with isSubmitting true.
+     * Formik has already validated by this point, so we cast instead of re-validating.
+     * Cast applies the schema's trims and can't throw; a rejection here would leave
+     * Formik stuck with isSubmitting true.
      */
     const { name, institution, department, email, message } =
       contactSchema.cast(values);

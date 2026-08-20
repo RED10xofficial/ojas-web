@@ -46,12 +46,10 @@ export default function CareersApplicationForm({
   const [isCareerSubmitted, setIsCareerSubmitted] = useState(false);
 
   /**
-   * Picking a role in the positions list preselects it here, while still
-   * letting the applicant override the choice. Derived during render rather
-   * than synced via an effect, which would cascade renders.
-   *
-   * The override is tagged with the selection it was made against, so a
-   * later pick from the list takes precedence over a manual change.
+   * Picking a role up in the positions list preselects it here, though the applicant
+   * can still change it. Worked out during render rather than synced with an effect,
+   * which would only cost another render pass. The manual choice remembers which
+   * selection it overrode, so a later pick from the list still wins.
    */
   const [override, setOverride] = useState<{ for: number; value: string } | null>(
     null,

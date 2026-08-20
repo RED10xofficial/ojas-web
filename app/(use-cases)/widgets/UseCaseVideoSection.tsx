@@ -65,12 +65,9 @@ export default function UseCaseVideoSection({ section }: Props) {
         </div>
       </section>
 
-      {/*
-        Section 2 is the same phone-mockup + quote block as the home page's
-        testimonial, so it delegates rather than keeping a second copy. That
-        also gives this section real video playback, which the duplicate
-        never had despite the CMS carrying video/poster fields.
-      */}
+      {/* Reuses the home testimonial instead of keeping a second copy of the same
+          phone-mockup and quote block. This one also actually plays the video, which
+          the duplicate never did. */}
       {section.quote && (
         <TestimonialSection
           data={{

@@ -36,8 +36,8 @@ import ComplianceSection from "../../(home)/widgets/ComplianceSection";
 import FAQSection from "../../(home)/widgets/FAQSection";
 
 /**
- * Slugs that ship a hardcoded widget fallback for when the CMS is
- * unreachable. Any other model page comes purely from the CMS.
+ * These slugs ship a hardcoded widget fallback for when the CMS is unreachable.
+ * Every other model page comes straight from the CMS.
  */
 type ValidSlug = "dermatology" | "scribe";
 

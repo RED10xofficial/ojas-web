@@ -96,8 +96,8 @@ import {
 } from "./adapters";
 
 /**
- * Every widget receives its raw CMS section as `data`, so the payload shape
- * varies per widget and cannot be typed here.
+ * Every widget gets its raw CMS section as `data`, and the shape differs per
+ * widget, so there's nothing meaningful to type here.
  */
 export type SectionComponent = ComponentType<{
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -205,8 +205,8 @@ export const COMPONENT_MAP: Record<string, SectionComponent> = {
 };
 
 /**
- * `slug::__component` → widget, for pages that reuse a CMS component type but
- * render their own visual treatment of it.
+ * `slug::__component` → widget, for the pages that reuse a CMS component type but
+ * want their own visual treatment of it.
  */
 export const PAGE_OVERRIDES: Record<string, SectionComponent> = {
   "dermatology::home-page.home-access-points-section":

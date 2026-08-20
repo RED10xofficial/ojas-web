@@ -6,8 +6,8 @@ interface Props {
 }
 
 /**
- * Academic summary header that opens the research papers page, above the
- * statistics deck.
+ * The summary header that opens the research papers page, sitting above the
+ * stats deck.
  */
 export default function ResearchHero({ section }: Props) {
   return (

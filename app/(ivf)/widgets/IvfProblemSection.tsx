@@ -36,9 +36,9 @@ const defaultSteps = [
 ];
 
 /**
- * Fixed 2x2 choreography: each card points at the next one so the four steps
- * read as a closed loop. Cards 3 and 4 swap grid slots from md up to keep the
- * numbering clockwise; below that they stack in order and point downwards.
+ * Fixed 2x2 layout where each card points at the next, so the four steps read as a
+ * loop. Cards 3 and 4 swap places from md up to keep the numbering clockwise; on
+ * smaller screens they just stack in order and point down.
  */
 const cardLayout: {
   from: { x: number; y: number };

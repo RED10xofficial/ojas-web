@@ -2,7 +2,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import SmoothScroll from "./components/SmoothScroll";
 import { getThemeConfig, getHeader, getFooter } from "./lib/api";
 import { buildThemeCss } from "./lib/theme";
 
@@ -39,7 +38,6 @@ export default async function RootLayout({
         </head>
       )}
       <body className="min-h-full flex flex-col">
-        {/* <SmoothScroll /> */}
         <Header data={headerData} />
         <main className="flex-1">{children}</main>
         <Footer data={footerData} />

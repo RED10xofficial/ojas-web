@@ -9,8 +9,8 @@ import { getStrapiMedia } from "@/app/lib/strapi";
 import { cn } from "@/app/lib/cn";
 
 /**
- * Wraps a card in its CMS link, if it has one. Absolute URLs leave the app, so
- * they get a plain anchor; in-app paths keep client-side navigation.
+ * Wraps a card in whatever link the CMS gave it. Absolute URLs leave the site so
+ * they get a plain anchor; internal paths stay on client-side nav.
  */
 function CardLink({ href, newTab, children }: { href?: string; newTab?: boolean; children: ReactNode }) {
   if (!href) return <>{children}</>;
@@ -34,11 +34,11 @@ function CardLink({ href, newTab, children }: { href?: string; newTab?: boolean;
 }
 
 /**
- * A colour set in the CMS always wins; the default palette only fills in what
- * was left empty. Background and text resolve independently, so a card can take
- * its background from Strapi and keep the default text colours, or vice versa.
- * When a text colour is set the inner copy inherits it and leans on opacity for
- * the muted labels, since a fixed slate would fight the chosen colour.
+ * Whatever the CMS sets wins; the default palette only fills the gaps. Background
+ * and text are worked out separately, so a card can take its background from
+ * Strapi and keep the default text colours. When a text colour is set the copy
+ * inherits it and uses opacity for the muted labels, since a hardcoded slate
+ * would clash with it.
  */
 function AccessCard({ title, science, target, iconUrl, bgColor, textColor, href, newTab }: { title: string; science: string; target: string; iconUrl?: string | null; bgColor?: string; textColor?: string; href?: string; newTab?: boolean }) {
   const card = (

@@ -1,6 +1,6 @@
 /**
- * Long-form date used across the resource pages ("January 05, 2026").
- * Returns the raw value when it is not a parseable date, null when empty.
+ * Long-form date for the resource pages ("January 05, 2026"). Hands back the raw
+ * value if it won't parse, and null if there's nothing there.
  */
 export function formatLongDate(value?: string | null): string | null {
   if (!value) return null;

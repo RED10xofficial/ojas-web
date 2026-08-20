@@ -6,9 +6,8 @@ interface Props {
 }
 
 /**
- * Narrative variant of the Symptom Trap block: one card with a pull quote.
- * The two-column bullet comparison lives in the home-page
- * `home-symptom-trap-section` widget.
+ * Narrative take on the Symptom Trap block: a single card with a pull quote.
+ * The two-column bullet comparison lives in `home-symptom-trap-section`.
  */
 export default function SymptomTrapNarrativeSection({ section }: Props) {
   return (

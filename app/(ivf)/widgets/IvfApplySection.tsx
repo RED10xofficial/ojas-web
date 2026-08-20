@@ -29,9 +29,9 @@ const initialValues = {
 type ApplyValues = typeof initialValues;
 
 /**
- * Mirrors the contact form's conventions: `.trim()` casts before validation, so
- * whitespace-only fields fail `required`, and `required` precedes the length
- * rules because Formik surfaces only the first error per field.
+ * Same conventions as the contact form: `.trim()` casts before validation so
+ * whitespace-only fields fail `required`, and `required` comes before the length
+ * rules since Formik only shows the first error per field.
  */
 const applySchema = Yup.object({
   name: Yup.string()

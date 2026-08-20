@@ -66,8 +66,8 @@ export default function ScribeWorkspaceSection({ section }: Props) {
   const bullets = capability.bullets ?? [];
 
   /**
-   * A capability with specialty tabs shows the active tab's output; everything
-   * else shows its own extraction fields.
+   * If a capability has specialty tabs, we show the active tab's output.
+   * Otherwise it just shows its own extraction fields.
    */
   const activeFields: ScribeExtractedField[] =
     specialtyTabs.length > 0

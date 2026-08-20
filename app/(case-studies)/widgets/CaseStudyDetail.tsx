@@ -26,8 +26,8 @@ interface Props {
 }
 
 /**
- * One headline number from the study. Tiles flex to fill the row so a study
- * missing a field simply shows fewer, rather than an empty cell.
+ * One headline number from the study. The tiles flex to fill the row, so a study
+ * that's missing a field just shows fewer tiles instead of a blank one.
  */
 function OutcomeTile({
   icon,
@@ -199,10 +199,8 @@ export default function CaseStudyDetail({ study }: Props) {
                   className="absolute top-0 left-0 bottom-0 overflow-hidden border-r-2 border-brand-blue"
                   style={{ width: `${100 - sliderPosition}%` }}
                 >
-                  {/*
-                    The inner wrapper keeps the full container width while the
-                    parent clips it, so the image reveals rather than squashes.
-                  */}
+                  {/* The parent clips this, so the inner wrapper has to hold the full width.
+                      Otherwise the image squashes instead of revealing. */}
                   <div className="absolute top-0 left-0 h-full w-screen max-w-none">
                     <div className="relative h-full w-full">
                       <Image

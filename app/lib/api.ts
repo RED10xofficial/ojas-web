@@ -28,6 +28,7 @@ import type {
   UseCasesPageData,
   UseCaseData,
   UseCaseCategoryGroup,
+  SearchResponse,
 } from "./types";
 
 /* ─── Cache tags ─── */
@@ -93,9 +94,9 @@ async function get<T>(path: string, tags?: string[]): Promise<T | null> {
 }
 
 /**
- * Same as `get`, but for routes that require the Strapi API token.
- * Server-only: STRAPI_API_TOKEN is never NEXT_PUBLIC_-prefixed, so it
- * resolves to undefined (not the real value) in any client bundle.
+ * Same as `get`, but for routes that need the Strapi API token. Server-only by
+ * construction: STRAPI_API_TOKEN is never NEXT_PUBLIC_-prefixed, so it comes out
+ * undefined in any client bundle.
  */
 async function getSecure<T>(path: string, tags?: string[]): Promise<T | null> {
   try {
@@ -316,6 +317,18 @@ export async function getUseCaseDirectory(): Promise<UseCaseCategoryGroup[]> {
 export async function getAllUseCaseSlugs(): Promise<string[]> {
   const categories = await getUseCaseDirectory();
   return categories.flatMap((cat) => cat.items.map((item) => item.slug));
+}
+
+/* ─── Site search ─── */
+
+/**
+ * Left uncached on purpose. This is driven by typing in the header overlay and by
+ * /search, and neither knows the query ahead of time.
+ */
+export function getSearchResults(query: string, limit?: number) {
+  const params = new URLSearchParams({ q: query });
+  if (limit) params.set("limit", String(limit));
+  return get<SearchResponse>(`/api/search?${params.toString()}`);
 }
 
 /* ─── Form submissions (client-side, uncached) ─── */

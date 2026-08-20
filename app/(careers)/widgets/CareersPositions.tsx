@@ -97,15 +97,13 @@ export default function CareersPositions({
   const [openRole, setOpenRole] = useState<string | null>(null);
 
   /**
-   * "Proceed to Application" selects the role, then scrolls to the form.
-   * An external applyUrl takes over entirely when one is set.
+   * "Proceed to Application" picks the role and scrolls down to the form.
+   * If the role has an external applyUrl, that takes over instead.
    */
   const handleProceed = (
     e: React.MouseEvent<HTMLAnchorElement>,
     role: CareersJobRole,
   ) => {
-    // if (role.applyUrl) return;
-
     e.preventDefault();
     onRoleSelect?.(role.title, role.slug);
 

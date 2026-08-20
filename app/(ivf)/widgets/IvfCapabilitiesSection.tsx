@@ -23,8 +23,10 @@ import { cn } from "@/app/lib/cn";
 
 type LensType = "metabolic" | "hormonal" | "biometric" | "memory" | "scribe";
 
-/* Visual treatment per slot: CMS modules keep their order and reuse the lens,
-   icon and status readout that belong to the slot they land in. */
+/*
+ * Each slot has its own look. CMS modules keep whatever order they're in and pick
+ * up the lens, icon and status readout of the slot they land in.
+ */
 const moduleVisuals: {
   Icon: LucideIcon;
   lensType: LensType;
@@ -66,9 +68,9 @@ const defaultModules = [
 ];
 
 /**
- * Node and the browser disagree on the last float digit of Math.sin/cos, which
- * shows up as a hydration mismatch on the lens geometry — so every derived
- * coordinate is rounded before it reaches the DOM.
+ * Node and the browser don't always agree on the last digit of Math.sin/cos, which
+ * React reports as a hydration mismatch. Rounding every derived coordinate before
+ * it reaches the DOM avoids it.
  */
 const round = (value: number) => Math.round(value * 100) / 100;
 

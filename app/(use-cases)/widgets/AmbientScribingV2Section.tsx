@@ -11,9 +11,8 @@ interface Props {
 }
 
 /**
- * Two-column variant of the ambient scribing block: copy and metric tiles
- * beside a simulated live transcript. The home page's centred single-card
- * version stays as-is for pages that use it.
+ * Two-column take on the ambient scribing block: copy and metric tiles next to a
+ * simulated live transcript. The home page still uses the centred version.
  */
 export default function AmbientScribingV2Section({ section }: Props) {
   const stats = section.stats ?? [];

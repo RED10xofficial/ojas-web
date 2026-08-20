@@ -32,8 +32,8 @@ const CaseStudiesPortfolio = ({ section }: Props) => {
   const [isFiltering, setIsFiltering] = useState(false);
 
   /**
-   * Guards against a slow early request overwriting a newer filter's results.
-   * `isInitial` skips the refetch on mount since the server already sent page 1.
+   * Stops a slow request from clobbering results the user has since filtered for.
+   * We skip the fetch on mount too, since the server already gave us page 1.
    */
   const requestId = useRef(0);
   const isInitial = useRef(true);

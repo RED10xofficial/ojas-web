@@ -11,8 +11,8 @@ interface Props {
 }
 
 /**
- * Bar colours come from a tone enum rather than raw Tailwind gradients, so
- * authors pick a meaning ("negative") instead of a class string.
+ * Bar colours come from a tone enum instead of raw Tailwind gradients, so authors
+ * pick what they mean ("negative") rather than a class string.
  */
 const TONE_GRADIENTS: Record<string, string> = {
   positive: "from-emerald-400 to-teal-500",

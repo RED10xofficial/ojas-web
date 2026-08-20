@@ -3,9 +3,8 @@ import UseCasesCategory from "./UseCasesCategory";
 import type { UseCasesPageSection } from "@/app/lib/types";
 
 /**
- * Renders the use-cases-index dynamic zone components in the order they are
- * arranged in the CMS. Non-use-cases components (FAQ, stats, …) are handled by
- * the shared SectionRenderer on the page.
+ * Renders the use-cases-index sections in whatever order the CMS has them.
+ * Anything shared (FAQ, stats, …) goes through SectionRenderer up on the page.
  */
 export default function UseCasesSections({
   sections,

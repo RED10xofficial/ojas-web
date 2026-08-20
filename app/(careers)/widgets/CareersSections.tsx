@@ -13,9 +13,9 @@ import type {
 } from "@/app/lib/types";
 
 /**
- * Careers sections share state — picking a role in the positions list
- * preselects it in the application form — so they are rendered together
- * here rather than through the generic SectionRenderer.
+ * These sections talk to each other: picking a role in the list preselects it in
+ * the form. That's why they render together here instead of going through
+ * SectionRenderer.
  */
 export default function CareersSections({
   sections,
@@ -23,8 +23,8 @@ export default function CareersSections({
   sections?: CareersPageSection[];
 }) {
   /**
-   * `pick` increments on every selection so that re-picking the same role
-   * still counts as a fresh choice, overriding any manual dropdown change.
+   * `pick` bumps on every selection, so choosing the same role twice still counts
+   * as a fresh pick and overrides whatever the user set in the dropdown.
    */
   const [selection, setSelection] = useState({ role: "", pick: 0 });
   const selectRole = (roleTitle: string) =>

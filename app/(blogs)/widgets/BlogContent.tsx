@@ -2,9 +2,9 @@ import ReactMarkdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
 
 /**
- * Full block-level renderer for a blog's richtext body. Unlike the shared
- * inline MarkdownText, this keeps paragraphs, headings, lists and quotes so
- * long-form articles read correctly.
+ * Renders a blog's richtext body. MarkdownText only handles inline formatting,
+ * so long-form posts come through here and keep their paragraphs, headings,
+ * lists and quotes.
  */
 const BlogContent = ({ markdown }: { markdown: string }) => (
   <ReactMarkdown

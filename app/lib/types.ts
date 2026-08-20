@@ -504,6 +504,7 @@ export type HomePageSection =
   | PricingSection
   | ComplianceSection
   | FaqSection
+  | HospitalsCtaSection
   | CustomCodeSection
   | HomeCalculatorWidget;
 
@@ -515,9 +516,7 @@ export interface HomePageData {
   sections: HomePageSection[];
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   MODELS PAGE TYPES
-   ═══════════════════════════════════════════════════════════════ */
+/* ══ MODELS PAGE TYPES ══ */
 
 /* ─── Derma Hero ─── */
 export interface DiagnosticPrompt {
@@ -812,6 +811,7 @@ export type ModelsPageSection =
   | PricingSection
   | ComplianceSection
   | FaqSection
+  | HospitalsCtaSection
   | CustomCodeSection
   | HomeCalculatorWidget
   /* Specialist widgets shared with use case pages (gynecology, …) */
@@ -824,9 +824,7 @@ export type ModelsPageSection =
   | SymptomTrapNarrativeSectionData
   | SymptomTrapSection;
 
-/* ═══════════════════════════════════════════════════════════════
-   MODELS INDEX PAGE TYPES
-   ═══════════════════════════════════════════════════════════════ */
+/* ══ MODELS INDEX PAGE TYPES ══ */
 
 export type ModelAccent =
   | "blue"
@@ -903,6 +901,7 @@ export type ModelsIndexPageSection =
   | StatsSection
   | ScrollerSection
   | ComplianceSection
+  | HospitalsCtaSection
   | CustomCodeSection;
 
 export interface ModelsIndexPageData {
@@ -989,9 +988,7 @@ export interface ModelsPageData {
   sections: ModelsPageSection[];
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   CAREERS PAGE TYPES
-   ═══════════════════════════════════════════════════════════════ */
+/* ══ CAREERS PAGE TYPES ══ */
 
 /* ─── Perks ─── */
 export interface CareersPerk {
@@ -1065,6 +1062,7 @@ export type CareersPageSection =
   | TestimonialSection
   | BlogsSection
   | ComplianceSection
+  | HospitalsCtaSection
   | CustomCodeSection;
 
 /* ─── Careers Page Response ─── */
@@ -1075,9 +1073,7 @@ export interface CareersPageData {
   sections: CareersPageSection[];
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   CONTACT PAGE TYPES
-   ═══════════════════════════════════════════════════════════════ */
+/* ══ CONTACT PAGE TYPES ══ */
 
 /* ─── Direct Channels ─── */
 export interface ContactChannel {
@@ -1134,6 +1130,7 @@ export type ContactPageSection =
   | StatsSection
   | ScrollerSection
   | ComplianceSection
+  | HospitalsCtaSection
   | CustomCodeSection;
 
 /* ─── Contact Page Response ─── */
@@ -1144,9 +1141,7 @@ export interface ContactPageData {
   sections: ContactPageSection[];
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   ABOUT PAGE TYPES
-   ═══════════════════════════════════════════════════════════════ */
+/* ══ ABOUT PAGE TYPES ══ */
 
 /* ─── Mission & Vision ─── */
 export interface AboutPurposeCard {
@@ -1243,6 +1238,7 @@ export type AboutPageSection =
   | ComplianceSection
   | CertifiedAuthorityBoardSection
   | PublicationsSection
+  | HospitalsCtaSection
   | CustomCodeSection;
 
 /* ─── About Page Response ─── */
@@ -1253,9 +1249,7 @@ export interface AboutPageData {
   sections: AboutPageSection[];
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   PRICING PAGE TYPES
-   ═══════════════════════════════════════════════════════════════ */
+/* ══ PRICING PAGE TYPES ══ */
 
 /* ─── Hero / Plans ─── */
 export interface PricingTierFeature {
@@ -1373,6 +1367,7 @@ export type PricingPageSection =
   | PricingSection
   | TestimonialSection
   | PublicationsSection
+  | HospitalsCtaSection
   | CustomCodeSection;
 
 /* ─── Pricing Page Response ─── */
@@ -1383,9 +1378,7 @@ export interface PricingPageData {
   sections: PricingPageSection[];
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   DEVELOPER API PAGE TYPES
-   ═══════════════════════════════════════════════════════════════ */
+/* ══ DEVELOPER API PAGE TYPES ══ */
 
 /* ─── Hero ─── */
 export interface DeveloperHeroSection {
@@ -1468,6 +1461,7 @@ export type DeveloperApiPageSection =
   | ComplianceSection
   | PricingSection
   | PublicationsSection
+  | HospitalsCtaSection
   | CustomCodeSection;
 
 /* ─── Developer API Page Response ─── */
@@ -1478,9 +1472,7 @@ export interface DeveloperApiPageData {
   sections: DeveloperApiPageSection[];
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   BLOGS PAGE TYPES
-   ═══════════════════════════════════════════════════════════════ */
+/* ══ BLOGS PAGE TYPES ══ */
 
 /* ─── Blog Category ─── */
 export interface BlogCategory {
@@ -1575,6 +1567,7 @@ export type BlogsPageSection =
   | StatsSection
   | ScrollerSection
   | ComplianceSection
+  | HospitalsCtaSection
   | CustomCodeSection;
 
 /* ─── Blogs Page Response ─── */
@@ -1585,9 +1578,7 @@ export interface BlogsPageData {
   sections: BlogsPageSection[];
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   RESEARCH PAPERS PAGE TYPES
-   ═══════════════════════════════════════════════════════════════ */
+/* ══ RESEARCH PAPERS PAGE TYPES ══ */
 
 /* ─── Research Paper Category ─── */
 export interface ResearchPaperCategory {
@@ -1698,6 +1689,7 @@ export type ResearchPapersPageSection =
   | ScrollerSection
   | ComplianceSection
   | PublicationsSection
+  | HospitalsCtaSection
   | CustomCodeSection;
 
 /* ─── Research Papers Page Response ─── */
@@ -1708,9 +1700,7 @@ export interface ResearchPapersPageData {
   sections: ResearchPapersPageSection[];
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   CASE STUDIES PAGE TYPES
-   ═══════════════════════════════════════════════════════════════ */
+/* ══ CASE STUDIES PAGE TYPES ══ */
 
 /* ─── Case Study Category ─── */
 export interface CaseStudyCategory {
@@ -1864,6 +1854,7 @@ export type CaseStudiesPageSection =
   | StatsSection
   | ScrollerSection
   | ComplianceSection
+  | HospitalsCtaSection
   | CustomCodeSection;
 
 /* ─── Case Studies Page Response ─── */
@@ -1874,9 +1865,7 @@ export interface CaseStudiesPageData {
   sections: CaseStudiesPageSection[];
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   WHITE PAPER PAGE TYPES
-   ═══════════════════════════════════════════════════════════════ */
+/* ══ WHITE PAPER PAGE TYPES ══ */
 
 /* ─── Market Trend ─── */
 export interface MarketTrend {
@@ -1947,6 +1936,7 @@ export type WhitePaperPageSection =
   | StatsSection
   | ScrollerSection
   | ComplianceSection
+  | HospitalsCtaSection
   | CustomCodeSection;
 
 /* ─── White Paper Page Response ─── */
@@ -1957,9 +1947,7 @@ export interface WhitePaperPageData {
   sections: WhitePaperPageSection[];
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   USE CASES PAGE TYPES
-   ═══════════════════════════════════════════════════════════════ */
+/* ══ USE CASES PAGE TYPES ══ */
 
 /* ─── Use Case FAQ ─── */
 export interface UseCaseFaqItem {
@@ -2269,6 +2257,7 @@ export type UseCaseSection =
   | ModelsSection
   | PublicationsSection
   | HomeCalculatorWidget
+  | HospitalsCtaSection
   | CustomCodeSection;
 
 /* Sections the use cases index may render */
@@ -2279,6 +2268,7 @@ export type UseCasesPageSection =
   | StatsSection
   | ScrollerSection
   | ComplianceSection
+  | HospitalsCtaSection
   | CustomCodeSection;
 
 /* ─── Use Case Detail Response ─── */
@@ -2306,9 +2296,7 @@ export interface UseCasesPageData {
   sections: UseCasesPageSection[];
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   HOSPITALS PAGE TYPES
-   ═══════════════════════════════════════════════════════════════ */
+/* ══ HOSPITALS PAGE TYPES ══ */
 
 /* Credential pill shown in the hero and CTA tickers. */
 export interface HospitalsTrustBadge {
@@ -2425,6 +2413,11 @@ export interface HospitalsCtaSection {
   titleSecondLine?: string;
   description?: string;
   buttonText?: string;
+  /**
+   * Tags submissions coming from this instance, since the section can sit in any
+   * page's dynamic zone. Leave it unset and it falls back to "hospitals".
+   */
+  submissionSource?: ContactSubmissionSource;
   /* Markdown: `**bold**` renders in the accent colour. */
   noticeText?: string;
   trustBadges?: HospitalsTrustBadge[];
@@ -2455,9 +2448,7 @@ export interface HospitalsPageData {
   sections: HospitalsPageSection[];
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   IVF PAGE TYPES
-   ═══════════════════════════════════════════════════════════════ */
+/* ══ IVF PAGE TYPES ══ */
 
 /* Credential pill shown in the hero and pre-apply tickers. */
 export interface IvfCredential {
@@ -2634,6 +2625,7 @@ export type IvfPageSection =
   | PricingSection
   | TestimonialSection
   | PublicationsSection
+  | HospitalsCtaSection
   | CustomCodeSection;
 
 /* ─── IVF Page Response ─── */
@@ -2672,4 +2664,30 @@ export interface ContactSubmissionPayload {
 /* ─── Newsletter Subscription ─── */
 export interface NewsletterSubscriptionPayload {
   email: string;
+}
+
+/* ─── Site Search ─── */
+export type SearchResultType =
+  | "page"
+  | "blog"
+  | "case-study"
+  | "use-case"
+  | "research-paper"
+  | "model";
+
+export interface SearchResult {
+  title: string;
+  description?: string | null;
+  href: string;
+  type: SearchResultType;
+  /** Human-readable form of `type`, rendered as the result's badge. */
+  typeLabel: string;
+}
+
+export interface SearchResponse {
+  query: string;
+  results: SearchResult[];
+  /** Matches across every source, which can exceed `results.length`. */
+  total: number;
+  counts: Partial<Record<SearchResultType, number>>;
 }

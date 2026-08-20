@@ -2,8 +2,9 @@ import type { ReactNode } from "react";
 import { cn } from "@/app/lib/cn";
 
 /**
- * Bracketed frame that the pinned hospitals sections sit inside. The image is
- * a washed-out backdrop, so it stays a CSS background rather than an <Image>.
+ * The bracketed frame the pinned hospitals sections sit inside. The image is just
+ * a washed-out backdrop, so it stays a CSS background instead of going through
+ * <Image>.
  */
 export default function SectionPhotoFrame({
   children,

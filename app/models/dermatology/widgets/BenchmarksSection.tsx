@@ -37,9 +37,9 @@ const defaultRows = defaultRowValues.map((values, rowIdx) => ({
 }));
 
 /*
- * Fallback heat ramp, used when the CMS supplies no colour for a cell.
- * Written as literal classes so Tailwind emits them — a computed
- * `bg-brand-blue/${n}` would never reach the stylesheet.
+ * Fallback heat ramp for cells the CMS didn't colour. Written out as literal
+ * classes so Tailwind actually emits them; a computed `bg-brand-blue/${n}` would
+ * never make it into the stylesheet.
  */
 const BRAND_SHADES = [
   "bg-brand-blue/10",
@@ -70,10 +70,9 @@ function shadeIndex(value: string): number | null {
 const STRONG_SHADE = 4;
 
 /**
- * Resolves a cell's colours. A colour set in the CMS always wins; the
- * score-derived brand ramp only fills in what the CMS left empty, and the two
- * are resolved independently so a cell can take its background from Strapi
- * and still get a legible text colour from the ramp.
+ * Works out a cell's colours. Whatever the CMS sets wins, and the score-derived
+ * ramp only fills the gaps. The two are handled separately, so a cell can take its
+ * background from Strapi and still get legible text from the ramp.
  */
 function resolveCellColors(cell: TableCell, isHighlighted: boolean) {
   const shade = shadeIndex(cell.value);
